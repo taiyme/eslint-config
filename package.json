@@ -1,0 +1,79 @@
+{
+  "name": "@taiyme/eslint-config",
+  "version": "0.0.0",
+  "private": false,
+  "description": "taiyのためのESLint共有設定",
+  "homepage": "https://github.com/taiyme/eslint-config",
+  "bugs": "https://github.com/taiyme/eslint-config/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/taiyme/eslint-config.git"
+  },
+  "license": "MIT",
+  "author": "taiy <me@taiy.me> (https://taiy.me/)",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prebuild": "rimraf ./dist",
+    "build": "tsc --project ./tsconfig.build.json",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "prepare": "pnpm build"
+  },
+  "dependencies": {
+    "@eslint/compat": "^1.1.1",
+    "@eslint/js": "^9.9.0",
+    "@stylistic/eslint-plugin": "^2.6.4",
+    "@types/eslint__js": "^8.42.3",
+    "eslint-plugin-jsx-a11y": "^6.9.0",
+    "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "eslint-plugin-unused-imports": "^4.1.3",
+    "typescript-eslint": "^8.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.4.1",
+    "@typescript-eslint/parser": "^8.1.0",
+    "eslint": "^9.9.0",
+    "eslint-config-flat-gitignore": "^0.1.8",
+    "globals": "^15.9.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.5.4"
+  },
+  "peerDependencies": {
+    "eslint": ">=9",
+    "typescript": ">=5"
+  },
+  "peerDependenciesMeta": {
+    "eslint": {
+      "optional": false
+    },
+    "typescript": {
+      "optional": false
+    }
+  },
+  "packageManager": "pnpm@9.7.1+sha512.faf344af2d6ca65c4c5c8c2224ea77a81a5e8859cbc4e06b1511ddce2f0151512431dd19e6aff31f2c6a8f5f2aced9bd2273e1fed7dd4de1868984059d2c4247",
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "pnpm": {
+    "overrides": {
+      "eslint": "$eslint"
+    }
+  }
+}
