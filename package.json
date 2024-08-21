@@ -30,6 +30,9 @@
     "lint:fix": "eslint --fix .",
     "prepare": "pnpm build"
   },
+  "resolutions": {
+    "eslint": ">=9"
+  },
   "dependencies": {
     "@eslint/compat": "^1.1.1",
     "@eslint/js": "^9.9.0",
@@ -40,11 +43,11 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-unused-imports": "^4.1.3",
-    "typescript-eslint": "^8.1.0"
+    "typescript-eslint": "^8.2.0"
   },
   "devDependencies": {
-    "@types/node": "^22.4.1",
-    "@typescript-eslint/parser": "^8.1.0",
+    "@types/node": "^22.4.2",
+    "@typescript-eslint/parser": "^8.2.0",
     "eslint": "^9.9.0",
     "eslint-config-flat-gitignore": "^0.1.8",
     "globals": "^15.9.0",
@@ -71,9 +74,7 @@
     "access": "public",
     "registry": "https://registry.npmjs.org"
   },
-  "pnpm": {
-    "overrides": {
-      "eslint": "$eslint"
-    }
+  "overrides": {
+    "eslint": ">=9"
   }
 }
