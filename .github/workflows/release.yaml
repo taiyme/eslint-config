@@ -1,0 +1,80 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump_type:
+        description: Select bump type. (v[major].[minor].[patch])
+        required: true
+        default: patch
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
+
+jobs:
+  check_context:
+    name: Check context
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check actor
+        if: github.actor != github.repository_owner
+        run: exit 1
+
+      - name: Check branch
+        if: github.ref_name != 'main'
+        run: exit 1
+
+      - name: Check repository
+        if: github.repository != 'taiyme/eslint-config'
+        run: exit 1
+
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    needs:
+      - check_context
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          # cache: pnpm
+
+      - name: Configure environment
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
+      - name: Enable corepack
+        run: |
+          corepack enable
+
+      - name: Bump up version
+        run: |
+          pnpm version ${{ github.event.inputs.bump_type }} -m "v%s"
+
+      - name: Publish
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm publish --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Release
+        run: |
+          VERSION=$(git describe --tags --abbrev=0)
+          git push origin HEAD --follow-tags
+          gh release create "$VERSION" --generate-notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
