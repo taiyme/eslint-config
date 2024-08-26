@@ -22,8 +22,12 @@ const rules: ESLint.Rules = {
   ...stylisticTs.configs['disable-legacy'].rules,
 
   //#region JavaScript
+  eqeqeq: ['error', 'always', {
+    null: 'ignore',
+  }],
   'no-new-wrappers': 'error',
   'no-restricted-imports': 'off',
+  'no-self-compare': 'error',
   'no-undef': 'error',
   'no-unused-vars': 'off', // unused-importsで対応
   'prefer-template': 'warn',
@@ -36,6 +40,7 @@ const rules: ESLint.Rules = {
     fixStyle: 'inline-type-imports',
     disallowTypeAnnotations: true,
   }],
+  '@typescript-eslint/dot-notation': 'warn',
   '@typescript-eslint/explicit-function-return-type': 'off',
   '@typescript-eslint/no-empty-function': 'off',
   '@typescript-eslint/no-explicit-any': 'error',
@@ -44,6 +49,15 @@ const rules: ESLint.Rules = {
   '@typescript-eslint/no-non-null-assertion': 'error',
   '@typescript-eslint/no-unnecessary-condition': 'warn',
   '@typescript-eslint/no-unused-vars': 'off', // unused-importsで対応
+  '@typescript-eslint/no-use-before-define': ['error', {
+    functions: false,
+    classes: true,
+    variables: true,
+    allowNamedExports: false,
+    enums: true,
+    typedefs: true,
+    ignoreTypeReferences: true,
+  }],
   '@typescript-eslint/no-var-requires': 'error',
   '@typescript-eslint/prefer-optional-chain': 'warn',
   //#endregion TypeScript
