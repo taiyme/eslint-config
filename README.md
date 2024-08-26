@@ -18,6 +18,26 @@ taiyのためのESLint共有設定です。
 pnpm add -D eslint globals @typescript-eslint/parser eslint-config-flat-gitignore @taiyme/eslint-config
 ```
 
+### ピア依存関係の修正
+
+peerDependenciesに関する警告を解消するには、`package.json` に `pnpm.overrides` フィールドを追加します。
+
+```jsonc
+{
+  "pnpm": {
+    "overrides": {
+      "eslint": "$eslint"
+    }
+  }
+}
+```
+
+依存関係を再インストールします。
+
+```sh
+pnpm install
+```
+
 ## 使い方
 
 ### `eslint.config.js` の設定
