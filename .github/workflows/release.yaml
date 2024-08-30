@@ -16,7 +16,7 @@ on:
 jobs:
   check_context:
     name: Check context
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Check actor
         if: github.actor != github.repository_owner
@@ -32,7 +32,7 @@ jobs:
 
   release:
     name: Release
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     permissions:
       contents: write
       id-token: write
@@ -44,12 +44,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-          # cache: pnpm
-
       - name: Configure environment
         run: |
           git config --global user.name "github-actions[bot]"
@@ -59,6 +53,12 @@ jobs:
       - name: Enable corepack
         run: |
           corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
 
       - name: Bump up version
         run: |
@@ -74,7 +74,8 @@ jobs:
       - name: Release
         run: |
           VERSION=$(git describe --tags --abbrev=0)
-          git push origin HEAD --follow-tags
-          gh release create "$VERSION" --generate-notes
+          git push origin HEAD
+          git push origin $VERSION
+          gh release create $VERSION --generate-notes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
