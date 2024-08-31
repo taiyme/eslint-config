@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-22.04
     env:
       eslint-cache-version: v1
+      eslint-cache-path: ${{ github.workspace }}/node_modules/.cache/eslint
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,11 +35,10 @@ jobs:
       - name: Restore eslint cache
         uses: actions/cache@v4
         with:
-          path: node_modules/.cache/eslint
-          key: eslint-${{ env.eslint-cache-version }}-${{ hashFiles('/pnpm-lock.yaml') }}-${{ github.ref_name }}-${{ github.sha }}
-          restore-keys: |
-            eslint-${{ env.eslint-cache-version }}-${{ hashFiles('/pnpm-lock.yaml') }}-
+          path: ${{ env.eslint-cache-path }}
+          key: eslint-${{ env.eslint-cache-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: eslint-${{ env.eslint-cache-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}-
 
       - name: Run eslint
         run: |
-          pnpm lint --cache --cache-location node_modules/.cache/eslint --cache-strategy content
+          pnpm lint --cache --cache-location ${{ env.eslint-cache-path }} --cache-strategy content
