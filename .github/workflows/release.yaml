@@ -79,3 +79,12 @@ jobs:
           gh release create $VERSION --generate-notes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy_page:
+    name: Deploy to GitHub Pages
+    permissions:
+      pages: write
+      id-token: write
+    needs:
+      - release
+    uses: ./.github/workflows/deploy.yaml
