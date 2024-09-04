@@ -1,0 +1,75 @@
+name: Deploy to GitHub Pages
+
+on:
+  release:
+    types:
+      - published
+  workflow_dispatch:
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  check_context:
+    name: Check context
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check actor
+        if: github.actor != github.repository_owner
+        run: exit 1
+
+      - name: Check branch
+        if: github.ref_name != 'main'
+        run: exit 1
+
+      - name: Check repository
+        if: github.repository != 'taiyme/eslint-config'
+        run: exit 1
+
+  build:
+    name: Build
+    runs-on: ubuntu-22.04
+    needs:
+      - check_context
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Enable corepack
+        run: |
+          corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: Build
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm dlx @eslint/config-inspector build --config=./eslint.config.inspector.js --files=false
+
+      - name: Upload artifacts
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ github.workspace }}/.eslint-config-inspector
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-22.04
+    permissions:
+      pages: write
+      id-token: write
+    needs:
+      - build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

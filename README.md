@@ -125,6 +125,8 @@ export default [
 
 ## 仕様
 
+※ ESLint Config Inspectorを公開しています: <https://eslint-config.taiy.me/>
+
 `@taiyme/eslint-config` は、次のパッケージ及びプラグインを含むため、追加で記述する必要はありません。
 
 - **configs.typescript**
