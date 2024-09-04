@@ -76,9 +76,10 @@ const rules: ESLint.Rules = {
 
 export const react = [
   {
-    plugins,
-    rules,
+    name: 'taiyme/react/setup',
     languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
@@ -90,5 +91,13 @@ export const react = [
         version: 'detect',
       },
     },
+  },
+  {
+    name: 'taiyme/react/plugins',
+    plugins,
+  },
+  {
+    name: 'taiyme/react/rules',
+    rules,
   },
 ] as const satisfies ESLint.Config[];

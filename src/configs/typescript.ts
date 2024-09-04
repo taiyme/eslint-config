@@ -228,7 +228,18 @@ const rules: ESLint.Rules = {
 
 export const typescript = [
   {
+    name: 'taiyme/typescript/setup',
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+    },
+  },
+  {
+    name: 'taiyme/typescript/plugins',
     plugins,
+  },
+  {
+    name: 'taiyme/typescript/rules',
     rules,
   },
 ] as const satisfies ESLint.Config[];

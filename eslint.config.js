@@ -1,10 +1,9 @@
 // @ts-check
 
+import taiymeConfig from '@taiyme/eslint-config';
 import tsEslintParser from '@typescript-eslint/parser';
 import gitignore from 'eslint-config-flat-gitignore';
 import globals from 'globals';
-
-import taiymeConfig from './dist/index.js';
 
 const files = ['**/*.{js,ts}'];
 
@@ -18,8 +17,6 @@ export default [
       },
       parser: tsEslintParser,
       parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
         project: './tsconfig.json',
         tsconfigRootDir: import.meta.dirname,
       },

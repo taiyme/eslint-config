@@ -66,8 +66,6 @@ export default [
       },
       parser: tsEslintParser,
       parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
         project: './tsconfig.json',
         tsconfigRootDir: import.meta.dirname,
       },
@@ -153,7 +151,13 @@ export default [
 
 `@taiyme/eslint-config` は、次のオプションを含むため、指定する必要はありません。
 
+- **configs.typescript**
+  - languageOptions.ecmaVersion: `'latest'`
+  - languageOptions.sourceType: `'module'`
+
 - **configs.react**
+  - languageOptions.ecmaVersion: `'latest'`
+  - languageOptions.sourceType: `'module'`
   - languageOptions.parserOptions.ecmaFeatures.jsx: `true`
   - settings.react.version: `'detect'`
 
