@@ -20,6 +20,10 @@ declare module 'eslint-plugin-react' {
     & Omit<import('./eslint.js').Plugin, 'configs'>
     & {
       configs: {
+        recommended: {
+          // eslint-disable-next-line @typescript-eslint/consistent-type-imports
+          rules: import('./eslint.js').Rules;
+        };
         'jsx-runtime': {
           // eslint-disable-next-line @typescript-eslint/consistent-type-imports
           rules: import('./eslint.js').Rules;

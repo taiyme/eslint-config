@@ -14,6 +14,7 @@ const plugins = {
 } as const satisfies Record<string, ESLint.Plugin>;
 
 const rules: ESLint.Rules = {
+  ...reactPlugin.configs.recommended.rules,
   ...reactPlugin.configs['jsx-runtime'].rules,
   ...hooksPlugin.configs.recommended.rules,
   ...jsxA11yPlugin.flatConfigs.recommended.rules,
