@@ -22,6 +22,7 @@ const rules: ESLint.Rules = {
 
   //#region React
   'react/prop-types': 'off',
+  'react/display-name': 'off',
   //#endregion React
 
   //#region JSX (Stylistic)
