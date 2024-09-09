@@ -20,6 +20,10 @@ const rules: ESLint.Rules = {
   ...jsxA11yPlugin.flatConfigs.recommended.rules,
   ...stylisticJsx.configs['disable-legacy'].rules,
 
+  //#region React
+  'react/prop-types': 'off',
+  //#endregion React
+
   //#region JSX (Stylistic)
   '@stylistic/jsx/jsx-child-element-spacing': 'warn',
   '@stylistic/jsx/jsx-closing-bracket-location': ['warn', 'tag-aligned'],
