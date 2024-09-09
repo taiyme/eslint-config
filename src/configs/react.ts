@@ -14,10 +14,16 @@ const plugins = {
 } as const satisfies Record<string, ESLint.Plugin>;
 
 const rules: ESLint.Rules = {
+  ...reactPlugin.configs.recommended.rules,
   ...reactPlugin.configs['jsx-runtime'].rules,
   ...hooksPlugin.configs.recommended.rules,
   ...jsxA11yPlugin.flatConfigs.recommended.rules,
   ...stylisticJsx.configs['disable-legacy'].rules,
+
+  //#region React
+  'react/prop-types': 'off',
+  'react/display-name': 'off',
+  //#endregion React
 
   //#region JSX (Stylistic)
   '@stylistic/jsx/jsx-child-element-spacing': 'warn',
