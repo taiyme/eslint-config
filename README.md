@@ -145,6 +145,7 @@ export default [
   - [eslint.configs.recommended](https://github.com/eslint/eslint/blob/main/packages/js/src/configs/eslint-recommended.js)
   - [tsEslint.configs.recommended](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended.ts)
 - **configs.react**
+  - [reactPlugin.configs.recommended](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/configs/recommended.js)
   - [reactPlugin.configs['jsx-runtime']](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/configs/jsx-runtime.js)
   - [hooksPlugin.configs.recommended](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/src/index.js)
   - [jsxA11yPlugin.flatConfigs.recommended](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/index.js)
