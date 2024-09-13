@@ -42,7 +42,10 @@ jobs:
       - name: Generate new version
         id: generate
         run: |
-          cat package.json | jq -r '.version' | IFS='.' read -r major minor patch
+          version="$(cat package.json | jq -r '.version')"
+          major="$(cut -d. -f1 <<< "$version")"
+          minor="$(cut -d. -f2 <<< "$version")"
+          patch="$(cut -d. -f3 <<< "$version")"
           if [[ '${{ inputs.bump_type }}' == 'major' ]]; then
             new_version="$((major + 1)).0.0"
           elif [[ '${{ inputs.bump_type }}' == 'minor' ]]; then
