@@ -216,11 +216,6 @@ const rules: ESLint.Rules = {
         before: true,
         after: true,
       },
-      // https://github.com/eslint-stylistic/eslint-stylistic/issues/525
-      operator: {
-        before: true,
-        after: true,
-      },
     },
   }],
   //#endregion TypeScript (Stylistic)
