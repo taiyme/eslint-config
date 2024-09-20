@@ -17,6 +17,10 @@ on:
         description: (If bump type is "specify") Specify version.
         required: false
 
+concurrency:
+  group: release
+  cancel-in-progress: false
+
 permissions:
   contents: read
 
@@ -62,30 +66,6 @@ jobs:
           echo "NEW_TAG=v${new_version}" >> $GITHUB_OUTPUT
           echo "NEW_REF=ci-release/v${new_version}" >> $GITHUB_OUTPUT
 
-  create_branch:
-    name: Create branch
-    runs-on: ubuntu-22.04
-    needs:
-      - lint
-      - parse_version
-    permissions:
-      contents: write
-      id-token: write
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.sha }}
-          fetch-depth: 0
-
-      - name: Create branch
-        run: |
-          git switch -c ${{ needs.parse_version.outputs.NEW_REF }}
-
-      - name: Push branch
-        run: |
-          git push origin HEAD
-
   bump_version_update:
     name: Bump version (update)
     runs-on: ubuntu-22.04
@@ -114,17 +94,36 @@ jobs:
     name: Bump version (upload)
     runs-on: ubuntu-22.04
     needs:
+      - lint
       - parse_version
-      - create_branch
       - bump_version_update
-    permissions:
-      contents: write
     steps:
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@v1.11.0
+        id: app-token
+        with:
+          app-id: ${{ secrets.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_PRIVATE_KEY }}
+
+      - name: Get GitHub App User ID
+        id: get-user-id
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          user_id="$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)"
+          echo "user-id=${user_id}" >> $GITHUB_OUTPUT
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ needs.parse_version.outputs.NEW_REF }}
-          fetch-depth: 1
+          token: ${{ steps.app-token.outputs.token }}
+          persist-credentials: false
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Create branch
+        run: |
+          git switch -c ${{ needs.parse_version.outputs.NEW_REF }}
 
       - name: Download artifacts
         uses: actions/download-artifact@v4
@@ -133,8 +132,9 @@ jobs:
 
       - name: Commit and Push
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name '${{ steps.app-token.outputs.app-slug }}[bot]'
+          git config --global user.email '${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}
           git add .
           git commit -m "Release: ${{ needs.parse_version.outputs.NEW_VERSION }}"
           git push origin HEAD
@@ -147,42 +147,55 @@ jobs:
       - bump_version_upload
     outputs:
       PR_NUMBER: ${{ steps.create_pr.outputs.CREATED_PR }}
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    permissions:
-      pull-requests: write
     steps:
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@v1.11.0
+        id: app-token
+        with:
+          app-id: ${{ secrets.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_PRIVATE_KEY }}
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          token: ${{ steps.app-token.outputs.token }}
+          persist-credentials: false
           ref: ${{ needs.parse_version.outputs.NEW_REF }}
           fetch-depth: 0
 
       - name: Create PR
         id: create_pr
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          CREATED_PR=$(gh pr create --draft --base main --head ${{ needs.parse_version.outputs.NEW_REF }} --title "Release: ${{ needs.parse_version.outputs.NEW_VERSION }}" --body "")
-          CREATED_PR=$(echo $CREATED_PR | awk -F '/' '/\/pull\/[0-9]+$/ {print $NF}')
-          echo "CREATED_PR=$CREATED_PR" >> $GITHUB_OUTPUT
+          created_pr=$(gh pr create --draft --base main --head ${{ needs.parse_version.outputs.NEW_REF }} --title "Release: ${{ needs.parse_version.outputs.NEW_VERSION }}" --body "")
+          created_pr=$(echo $created_pr | awk -F '/' '/\/pull\/[0-9]+$/ {print $NF}')
+          echo "CREATED_PR=${created_pr}" >> $GITHUB_OUTPUT
 
   merge_pr:
     name: Merge PR
     runs-on: ubuntu-22.04
     needs:
       - create_pr
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    permissions:
-      contents: write
-      pull-requests: write
     steps:
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@v1.11.0
+        id: app-token
+        with:
+          app-id: ${{ secrets.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_PRIVATE_KEY }}
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          token: ${{ steps.app-token.outputs.token }}
+          persist-credentials: false
           ref: ${{ github.sha }}
           fetch-depth: 1
 
       - name: Merge PR
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           gh pr ready ${{ needs.create_pr.outputs.PR_NUMBER }}
           gh pr merge ${{ needs.create_pr.outputs.PR_NUMBER }} --squash --delete-branch --auto
@@ -227,67 +240,39 @@ jobs:
       contents: write
       id-token: write
     steps:
+      - name: Create GitHub App Token
+        uses: actions/create-github-app-token@v1.11.0
+        id: app-token
+        with:
+          app-id: ${{ secrets.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_PRIVATE_KEY }}
+
+      - name: Get GitHub App User ID
+        id: get-user-id
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          user_id="$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)"
+          echo "user-id=${user_id}" >> $GITHUB_OUTPUT
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          token: ${{ steps.app-token.outputs.token }}
+          persist-credentials: false
           ref: ${{ needs.get_merge_commit.outputs.MERGE_COMMIT }}
           fetch-depth: 0
 
       - name: Create tag
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name '${{ steps.app-token.outputs.app-slug }}[bot]'
+          git config --global user.email '${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}
           git tag ${{ needs.parse_version.outputs.NEW_TAG }} ${{ needs.get_merge_commit.outputs.MERGE_COMMIT }}
           git push origin ${{ needs.parse_version.outputs.NEW_TAG }}
 
       - name: Create Release
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           gh release create ${{ needs.parse_version.outputs.NEW_TAG }} --generate-notes
-
-  publish:
-    name: Publish
-    runs-on: ubuntu-22.04
-    needs:
-      - get_merge_commit
-      - release
-    env:
-      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-    permissions:
-      id-token: write
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ needs.get_merge_commit.outputs.MERGE_COMMIT }}
-          fetch-depth: 0
-
-      - name: Configure environment
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-
-      - name: Enable corepack
-        run: |
-          corepack enable
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-          cache: pnpm
-
-      - name: Install dependencies
-        run: |
-          pnpm install --frozen-lockfile --ignore-scripts
-
-      - name: Publish
-        run: |
-          pnpm publish --provenance --no-git-checks --access public
-
-  deploy:
-    name: Deploy to GitHub Pages
-    needs:
-      - release
-    permissions:
-      pages: write
-      id-token: write
-    uses: ./.github/workflows/deploy.yaml

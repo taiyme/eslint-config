@@ -1,12 +1,16 @@
 name: Deploy to GitHub Pages
 
 on:
-  workflow_call:
-  workflow_dispatch:
+  release:
+    types:
+      - published
 
 concurrency:
-  group: pages
+  group: deploy-to-pages
   cancel-in-progress: false
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -16,7 +20,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.event.release.tag_name }}
           fetch-depth: 1
 
       - name: Enable corepack
