@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.7
         with:
           ref: ${{ github.event.release.tag_name }}
           fetch-depth: 1
@@ -28,7 +28,7 @@ jobs:
           corepack enable
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v4.0.4
         with:
           node-version-file: .node-version
           cache: pnpm
@@ -39,7 +39,7 @@ jobs:
           pnpm dlx @eslint/config-inspector build --config=./eslint.config.inspector.js --files=false
 
       - name: Upload artifacts
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v3.0.1
         with:
           path: ${{ github.workspace }}/.eslint-config-inspector
 
@@ -57,4 +57,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v4.0.5

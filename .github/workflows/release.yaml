@@ -38,7 +38,7 @@ jobs:
       NEW_REF: ${{ steps.generate.outputs.NEW_REF }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.7
         with:
           ref: ${{ github.sha }}
           fetch-depth: 1
@@ -73,7 +73,7 @@ jobs:
       - parse_version
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.7
         with:
           ref: ${{ github.sha }}
           fetch-depth: 1
@@ -84,7 +84,7 @@ jobs:
           mv tmp package.json
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.4.0
         with:
           name: bump_version_files
           path: |
@@ -114,7 +114,7 @@ jobs:
           echo "user-id=${user_id}" >> $GITHUB_OUTPUT
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.7
         with:
           token: ${{ steps.app-token.outputs.token }}
           persist-credentials: false
@@ -126,7 +126,7 @@ jobs:
           git switch -c ${{ needs.parse_version.outputs.NEW_REF }}
 
       - name: Download artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v4.1.8
         with:
           name: bump_version_files
 
@@ -156,7 +156,7 @@ jobs:
           private-key: ${{ secrets.RELEASE_PRIVATE_KEY }}
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.7
         with:
           token: ${{ steps.app-token.outputs.token }}
           persist-credentials: false
@@ -186,7 +186,7 @@ jobs:
           private-key: ${{ secrets.RELEASE_PRIVATE_KEY }}
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.7
         with:
           token: ${{ steps.app-token.outputs.token }}
           persist-credentials: false
@@ -214,13 +214,13 @@ jobs:
       pull-requests: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.7
         with:
           ref: ${{ github.sha }}
           fetch-depth: 1
 
       - name: Get merge commit
-        uses: corrupt952/actions-retry-command@v1.0.7
+        uses: corrupt952/actions-retry-command@3f634a8c767d6fdde08095e3c3c4d42aa2d79bb3 # v1.0.7
         id: get_merge_commit
         with:
           command: gh pr view ${{ needs.create_pr.outputs.PR_NUMBER }} --json mergeCommit --template '{{ .mergeCommit.oid }}'
@@ -256,7 +256,7 @@ jobs:
           echo "user-id=${user_id}" >> $GITHUB_OUTPUT
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.7
         with:
           token: ${{ steps.app-token.outputs.token }}
           persist-credentials: false
