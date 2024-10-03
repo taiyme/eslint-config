@@ -4,21 +4,27 @@ on:
   push:
     branches:
       - main
-  pull_request:
-  workflow_call:
+  pull_request_target:
 
 jobs:
+  pre-checkout:
+    name: Pre checkout
+    uses: ./.github/workflows/pre-checkout.yaml
+
   lint:
     name: Lint
     runs-on: ubuntu-22.04
+    needs:
+      - pre-checkout
     env:
       eslint-cache-version: v1
       eslint-cache-path: ${{ github.workspace }}/node_modules/.cache/eslint
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.0
         with:
-          ref: ${{ github.sha }}
+          persist-credentials: false
+          ref: ${{ needs.pre-checkout.outputs.sha }}
           fetch-depth: 1
 
       - name: Enable corepack
@@ -39,7 +45,7 @@ jobs:
         uses: actions/cache@v4.0.2
         with:
           path: ${{ env.eslint-cache-path }}
-          key: eslint-${{ env.eslint-cache-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ github.ref_name }}-${{ github.sha }}
+          key: eslint-${{ env.eslint-cache-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ needs.pre-checkout.outputs.sha }}
           restore-keys: eslint-${{ env.eslint-cache-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}-
 
       - name: Run eslint

@@ -25,62 +25,63 @@ permissions:
   contents: read
 
 jobs:
-  lint:
-    name: Lint
-    uses: ./.github/workflows/lint.yaml
-
-  parse_version:
+  parse-version:
     name: Parse new version
     runs-on: ubuntu-22.04
     outputs:
-      NEW_VERSION: ${{ steps.generate.outputs.NEW_VERSION }}
-      NEW_TAG: ${{ steps.generate.outputs.NEW_TAG }}
-      NEW_REF: ${{ steps.generate.outputs.NEW_REF }}
+      new_version: ${{ steps.generate.outputs.new_version }}
+      new_tag: ${{ steps.generate.outputs.new_tag }}
+      new_ref: ${{ steps.generate.outputs.new_ref }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.0
         with:
+          persist-credentials: false
           ref: ${{ github.sha }}
           fetch-depth: 1
 
       - name: Generate new version
         id: generate
+        env:
+          bump_type: ${{ inputs.bump_type }}
+          specific_version: ${{ inputs.specific_version }}
         run: |
           version="$(cat package.json | jq -r '.version')"
           major="$(cut -d. -f1 <<< "$version")"
           minor="$(cut -d. -f2 <<< "$version")"
           patch="$(cut -d. -f3 <<< "$version")"
-          if [[ '${{ inputs.bump_type }}' == 'major' ]]; then
+          if [[ "$bump_type" == 'major' ]]; then
             new_version="$((major + 1)).0.0"
-          elif [[ '${{ inputs.bump_type }}' == 'minor' ]]; then
+          elif [[ "$bump_type" == 'minor' ]]; then
             new_version="${major}.$((minor + 1)).0"
-          elif [[ '${{ inputs.bump_type }}' == 'patch' ]]; then
+          elif [[ "$bump_type" == 'patch' ]]; then
             new_version="${major}.${minor}.$((patch + 1))"
-          elif [[ '${{ inputs.bump_type }}' == 'specify' ]]; then
-            new_version="${{ inputs.specific_version }}"
+          elif [[ "$bump_type" == 'specify' ]]; then
+            new_version="$specific_version"
           fi
           if [[ -z "$new_version" ]]; then
             exit 1
           fi
-          echo "NEW_VERSION=${new_version}" >> $GITHUB_OUTPUT
-          echo "NEW_TAG=v${new_version}" >> $GITHUB_OUTPUT
-          echo "NEW_REF=ci-release/v${new_version}" >> $GITHUB_OUTPUT
+          echo "new_version=${new_version}" >> $GITHUB_OUTPUT
+          echo "new_tag=v${new_version}" >> $GITHUB_OUTPUT
+          echo "new_ref=ci-release/v${new_version}" >> $GITHUB_OUTPUT
 
-  bump_version_update:
+  bump-version-update:
     name: Bump version (update)
     runs-on: ubuntu-22.04
     needs:
-      - parse_version
+      - parse-version
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.0
         with:
+          persist-credentials: false
           ref: ${{ github.sha }}
           fetch-depth: 1
 
       - name: Update package.json (root)
         run: |
-          jq '.version = "${{ needs.parse_version.outputs.NEW_VERSION }}"' package.json > tmp
+          jq '.version = "${{ needs.parse-version.outputs.new_version }}"' package.json > tmp
           mv tmp package.json
 
       - name: Upload artifacts
@@ -90,13 +91,12 @@ jobs:
           path: |
             package.json
 
-  bump_version_upload:
+  bump-version-upload:
     name: Bump version (upload)
     runs-on: ubuntu-22.04
     needs:
-      - lint
-      - parse_version
-      - bump_version_update
+      - parse-version
+      - bump-version-update
     steps:
       - name: Create GitHub App Token
         uses: actions/create-github-app-token@v1.11.0
@@ -114,7 +114,7 @@ jobs:
           echo "user-id=${user_id}" >> $GITHUB_OUTPUT
 
       - name: Checkout
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.0
         with:
           token: ${{ steps.app-token.outputs.token }}
           persist-credentials: false
@@ -123,7 +123,7 @@ jobs:
 
       - name: Create branch
         run: |
-          git switch -c ${{ needs.parse_version.outputs.NEW_REF }}
+          git switch -c ${{ needs.parse-version.outputs.new_ref }}
 
       - name: Download artifacts
         uses: actions/download-artifact@v4.1.8
@@ -136,17 +136,17 @@ jobs:
           git config --global user.email '${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}
           git add .
-          git commit -m "Release: ${{ needs.parse_version.outputs.NEW_VERSION }}"
+          git commit -m 'Release: ${{ needs.parse-version.outputs.new_version }}'
           git push origin HEAD
 
-  create_pr:
+  create-pr:
     name: Create PR
     runs-on: ubuntu-22.04
     needs:
-      - parse_version
-      - bump_version_upload
+      - parse-version
+      - bump-version-upload
     outputs:
-      PR_NUMBER: ${{ steps.create_pr.outputs.CREATED_PR }}
+      pr_number: ${{ steps.create-pr.outputs.pr_number }}
     steps:
       - name: Create GitHub App Token
         uses: actions/create-github-app-token@v1.11.0
@@ -156,27 +156,33 @@ jobs:
           private-key: ${{ secrets.RELEASE_PRIVATE_KEY }}
 
       - name: Checkout
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.0
         with:
           token: ${{ steps.app-token.outputs.token }}
           persist-credentials: false
-          ref: ${{ needs.parse_version.outputs.NEW_REF }}
+          ref: ${{ needs.parse-version.outputs.new_ref }}
           fetch-depth: 0
 
       - name: Create PR
-        id: create_pr
+        id: create-pr
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          created_pr=$(gh pr create --draft --base main --head ${{ needs.parse_version.outputs.NEW_REF }} --title "Release: ${{ needs.parse_version.outputs.NEW_VERSION }}" --body "")
-          created_pr=$(echo $created_pr | awk -F '/' '/\/pull\/[0-9]+$/ {print $NF}')
-          echo "CREATED_PR=${created_pr}" >> $GITHUB_OUTPUT
+          created_pr="$(
+            gh pr create --draft \
+              --base main \
+              --head ${{ needs.parse-version.outputs.new_ref }} \
+              --title "Release: ${{ needs.parse-version.outputs.new_version }}" \
+              --body ""
+          )"
+          pr_number="$(awk -F '/' '/\/pull\/[0-9]+$/ {print $NF}' <<< "$created_pr")"
+          echo "pr_number=${pr_number}" >> $GITHUB_OUTPUT
 
-  merge_pr:
+  merge-pr:
     name: Merge PR
     runs-on: ubuntu-22.04
     needs:
-      - create_pr
+      - create-pr
     steps:
       - name: Create GitHub App Token
         uses: actions/create-github-app-token@v1.11.0
@@ -186,7 +192,7 @@ jobs:
           private-key: ${{ secrets.RELEASE_PRIVATE_KEY }}
 
       - name: Checkout
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.0
         with:
           token: ${{ steps.app-token.outputs.token }}
           persist-credentials: false
@@ -197,34 +203,35 @@ jobs:
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          gh pr checks ${{ needs.create_pr.outputs.PR_NUMBER }} --watch
-          gh pr ready ${{ needs.create_pr.outputs.PR_NUMBER }}
-          gh pr merge ${{ needs.create_pr.outputs.PR_NUMBER }} --squash --delete-branch --auto
+          gh pr checks ${{ needs.create-pr.outputs.pr_number }} --watch
+          gh pr ready ${{ needs.create-pr.outputs.pr_number }}
+          gh pr merge ${{ needs.create-pr.outputs.pr_number }} --squash --delete-branch --auto
 
-  get_merge_commit:
+  get-merge-commit:
     name: Get merge commit
     runs-on: ubuntu-22.04
     needs:
-      - create_pr
-      - merge_pr
+      - create-pr
+      - merge-pr
     outputs:
-      MERGE_COMMIT: ${{ steps.get_merge_commit.outputs.result }}
+      merge_commit: ${{ steps.get-merge-commit.outputs.result }}
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       pull-requests: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.0
         with:
+          persist-credentials: false
           ref: ${{ github.sha }}
           fetch-depth: 1
 
       - name: Get merge commit
         uses: corrupt952/actions-retry-command@3f634a8c767d6fdde08095e3c3c4d42aa2d79bb3 # v1.0.7
-        id: get_merge_commit
+        id: get-merge-commit
         with:
-          command: gh pr view ${{ needs.create_pr.outputs.PR_NUMBER }} --json mergeCommit --template '{{ .mergeCommit.oid }}'
+          command: gh pr view ${{ needs.create-pr.outputs.pr_number }} --json mergeCommit --template '{{ .mergeCommit.oid }}'
           working_directory: ${{ github.workspace }}
           max_attempts: 10
           retry_interval: 10
@@ -233,8 +240,8 @@ jobs:
     name: Release
     runs-on: ubuntu-22.04
     needs:
-      - parse_version
-      - get_merge_commit
+      - parse-version
+      - get-merge-commit
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     permissions:
@@ -257,11 +264,11 @@ jobs:
           echo "user-id=${user_id}" >> $GITHUB_OUTPUT
 
       - name: Checkout
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.0
         with:
           token: ${{ steps.app-token.outputs.token }}
           persist-credentials: false
-          ref: ${{ needs.get_merge_commit.outputs.MERGE_COMMIT }}
+          ref: ${{ needs.get-merge-commit.outputs.merge_commit }}
           fetch-depth: 0
 
       - name: Create tag
@@ -269,11 +276,11 @@ jobs:
           git config --global user.name '${{ steps.app-token.outputs.app-slug }}[bot]'
           git config --global user.email '${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}
-          git tag ${{ needs.parse_version.outputs.NEW_TAG }} ${{ needs.get_merge_commit.outputs.MERGE_COMMIT }}
-          git push origin ${{ needs.parse_version.outputs.NEW_TAG }}
+          git tag ${{ needs.parse-version.outputs.new_tag }} ${{ needs.get-merge-commit.outputs.merge_commit }}
+          git push origin ${{ needs.parse-version.outputs.new_tag }}
 
       - name: Create Release
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          gh release create ${{ needs.parse_version.outputs.NEW_TAG }} --generate-notes
+          gh release create ${{ needs.parse-version.outputs.new_tag }} --generate-notes

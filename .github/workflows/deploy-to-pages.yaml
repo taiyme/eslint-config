@@ -18,8 +18,9 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.7
+        uses: actions/checkout@v4.2.0
         with:
+          persist-credentials: false
           ref: ${{ github.event.release.tag_name }}
           fetch-depth: 1
 
