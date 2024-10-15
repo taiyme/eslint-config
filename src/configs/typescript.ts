@@ -47,6 +47,7 @@ const rules: ESLint.Rules = {
   '@typescript-eslint/no-import-type-side-effects': 'error',
   '@typescript-eslint/no-inferrable-types': 'warn',
   '@typescript-eslint/no-non-null-assertion': 'error',
+  '@typescript-eslint/no-require-imports': 'error',
   '@typescript-eslint/no-unnecessary-condition': 'warn',
   '@typescript-eslint/no-unused-vars': 'off', // unused-importsで対応
   '@typescript-eslint/no-use-before-define': ['error', {
@@ -58,7 +59,6 @@ const rules: ESLint.Rules = {
     typedefs: true,
     ignoreTypeReferences: true,
   }],
-  '@typescript-eslint/no-var-requires': 'error',
   '@typescript-eslint/prefer-optional-chain': 'warn',
   //#endregion TypeScript
 
