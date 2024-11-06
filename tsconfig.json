@@ -18,10 +18,10 @@
   },
   "include": [
     "**/*.js",
-    "**/*.ts"
+    "**/*.ts",
   ],
   "exclude": [
     "./dist/**",
-    "./node_modules/**"
-  ]
+    "./node_modules/**",
+  ],
 }
