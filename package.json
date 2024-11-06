@@ -31,25 +31,25 @@
     "prepare": "pnpm build"
   },
   "dependencies": {
-    "@eslint/compat": "1.2.0",
-    "@eslint/js": "9.12.0",
-    "@stylistic/eslint-plugin-js": "2.9.0",
-    "@stylistic/eslint-plugin-jsx": "2.9.0",
-    "@stylistic/eslint-plugin-ts": "2.9.0",
+    "@eslint/compat": "1.2.2",
+    "@eslint/js": "9.14.0",
+    "@stylistic/eslint-plugin-js": "2.10.1",
+    "@stylistic/eslint-plugin-jsx": "2.10.1",
+    "@stylistic/eslint-plugin-ts": "2.10.1",
     "@types/eslint__js": "8.42.3",
-    "eslint-plugin-jsx-a11y": "6.10.0",
-    "eslint-plugin-react": "7.37.1",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-react": "7.37.2",
     "eslint-plugin-react-hooks": "5.0.0",
     "eslint-plugin-simple-import-sort": "12.1.1",
     "eslint-plugin-unused-imports": "4.1.4",
-    "typescript-eslint": "8.9.0"
+    "typescript-eslint": "8.13.0"
   },
   "devDependencies": {
-    "@types/node": "22.7.5",
-    "@typescript-eslint/parser": "8.9.0",
-    "eslint": "9.12.0",
+    "@types/node": "22.9.0",
+    "@typescript-eslint/parser": "8.13.0",
+    "eslint": "9.14.0",
     "eslint-config-flat-gitignore": "0.3.0",
-    "globals": "15.11.0",
+    "globals": "15.12.0",
     "rimraf": "6.0.1",
     "typescript": "5.6.3"
   },
@@ -65,7 +65,7 @@
       "optional": false
     }
   },
-  "packageManager": "pnpm@9.12.1+sha512.e5a7e52a4183a02d5931057f7a0dbff9d5e9ce3161e33fa68ae392125b79282a8a8a470a51dfc8a0ed86221442eb2fb57019b0990ed24fab519bf0e1bc5ccfc4",
+  "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee",
   "engines": {
     "node": ">=20"
   },

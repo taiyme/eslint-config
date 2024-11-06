@@ -22,7 +22,7 @@ jobs:
       id-token: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.2.1
+        uses: actions/checkout@v4.2.2
         with:
           persist-credentials: false
           ref: ${{ github.event.release.tag_name }}
@@ -39,7 +39,7 @@ jobs:
           corepack enable
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4.0.4
+        uses: actions/setup-node@v4.1.0
         with:
           node-version-file: .node-version
           cache: pnpm
