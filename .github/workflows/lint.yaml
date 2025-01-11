@@ -30,9 +30,8 @@ jobs:
           ref: ${{ needs.pre-checkout.outputs.sha }}
           fetch-depth: 1
 
-      - name: Enable corepack
-        run: |
-          corepack enable
+      - name: Setup pnpm
+        uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2 # v4.0.0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4.1.0
@@ -45,7 +44,7 @@ jobs:
           pnpm i --frozen-lockfile
 
       - name: Restore eslint cache
-        uses: actions/cache@v4.1.2
+        uses: actions/cache@v4.2.0
         with:
           path: ${{ env.eslint-cache-path }}
           key: eslint-${{ env.eslint-cache-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ needs.pre-checkout.outputs.sha }}
