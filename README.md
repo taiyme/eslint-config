@@ -1,5 +1,8 @@
 # @taiyme/eslint-config
 
+[![License](https://img.shields.io/npm/l/%40taiyme%2Feslint-config?style=flat)](./LICENSE)
+[![Version](https://img.shields.io/npm/v/%40taiyme%2Feslint-config?style=flat)](https://www.npmjs.com/package/@taiyme/eslint-config)
+
 taiyのためのESLint共有設定です。
 
 ## インストール
