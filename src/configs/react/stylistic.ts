@@ -1,29 +1,13 @@
-import { fixupPluginRules } from '@eslint/compat';
 import stylisticJsx from '@stylistic/eslint-plugin-jsx';
-import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
-import reactPlugin from 'eslint-plugin-react';
-import hooksPlugin from 'eslint-plugin-react-hooks';
 
-import type * as ESLint from '../types/eslint.js';
+import type * as ESLint from '../../types/eslint.js';
 
 const plugins = {
-  react: fixupPluginRules(reactPlugin) as ESLint.Plugin,
-  'react-hooks': fixupPluginRules(hooksPlugin) as ESLint.Plugin,
-  'jsx-a11y': fixupPluginRules(jsxA11yPlugin) as ESLint.Plugin,
   '@stylistic/jsx': stylisticJsx as ESLint.Plugin,
 } as const satisfies Record<string, ESLint.Plugin>;
 
 const rules: ESLint.Rules = {
-  ...reactPlugin.configs.recommended.rules,
-  ...reactPlugin.configs['jsx-runtime'].rules,
-  ...hooksPlugin.configs.recommended.rules,
-  ...jsxA11yPlugin.flatConfigs.recommended.rules,
   ...stylisticJsx.configs['disable-legacy'].rules,
-
-  //#region React
-  'react/prop-types': 'off',
-  'react/display-name': 'off',
-  //#endregion React
 
   //#region JSX (Stylistic)
   '@stylistic/jsx/jsx-child-element-spacing': 'warn',
@@ -80,9 +64,9 @@ const rules: ESLint.Rules = {
   //#endregion JSX (Stylistic)
 } as const satisfies ESLint.Rules;
 
-export const react = [
+export const reactStylistic = [
   {
-    name: 'taiyme/react/setup',
+    name: 'taiyme/react/stylistic:setup',
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -99,11 +83,11 @@ export const react = [
     },
   },
   {
-    name: 'taiyme/react/plugins',
+    name: 'taiyme/react/stylistic:plugins',
     plugins,
   },
   {
-    name: 'taiyme/react/rules',
+    name: 'taiyme/react/stylistic:rules',
     rules,
   },
 ] as const satisfies ESLint.Config[];
