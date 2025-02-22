@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
           ref: ${{ github.event.release.tag_name }}
@@ -30,7 +30,7 @@ jobs:
           run_install: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4.2.0
+        uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4.2.0
         with:
           node-version-file: .node-version
           cache: pnpm
@@ -41,7 +41,7 @@ jobs:
           pnpm dlx @eslint/config-inspector build --config=./eslint.config.inspector.js --files=false
 
       - name: Upload artifacts
-        uses: actions/upload-pages-artifact@v3.0.1
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
         with:
           path: ${{ github.workspace }}/.eslint-config-inspector
 
@@ -59,4 +59,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4.0.5
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
