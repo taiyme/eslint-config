@@ -128,42 +128,79 @@ export default [
 
 ※ ESLint Config Inspectorを公開しています: <https://eslint-config.taiy.me/>
 
+### プラグイン
+
 `@taiyme/eslint-config` は、次のパッケージ及びプラグインを含むため、追加で記述する必要はありません。
 
-- **configs.typescript**
+- **typescript/recommended**
   - [@typescript-eslint](https://typescript-eslint.io/rules/)
-  - [@stylistic/js](https://eslint.style/packages/js)
-  - [@stylistic/ts](https://eslint.style/packages/ts)
   - [simple-import-sort](https://www.npmjs.com/package/eslint-plugin-simple-import-sort)
   - [unused-imports](https://www.npmjs.com/package/eslint-plugin-unused-imports)
-- **configs.react**
+
+- **typescript/stylistic**
+  - [@stylistic/js](https://eslint.style/packages/js)
+  - [@stylistic/ts](https://eslint.style/packages/ts)
+
+- **typescript** (recommended + stylistic)
+  - **typescript/recommended** のすべて
+  - **typescript/stylistic** のすべて
+
+- **react/recommended**
   - [react](https://www.npmjs.com/package/eslint-plugin-react)
   - [react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks)
   - [jsx-a11y](https://www.npmjs.com/package/eslint-plugin-jsx-a11y)
+
+- **react/stylistic**
   - [@stylistic/jsx](https://eslint.style/packages/jsx)
+
+- **react** (recommended + stylistic)
+  - **react/recommended** のすべて
+  - **react/stylistic** のすべて
+
+### ルール
 
 `@taiyme/eslint-config` は、次のルールを含むため、指定する必要はありません。
 
-- **configs.typescript**
+- **typescript/recommended**
   - [eslint.configs.recommended](https://github.com/eslint/eslint/blob/main/packages/js/src/configs/eslint-recommended.js)
   - [tsEslint.configs.recommended](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended.ts)
-- **configs.react**
+
+- **typescript/stylistic**
+  - [stylisticJs.configs['disable-legacy']](https://github.com/eslint-stylistic/eslint-stylistic/blob/main/packages/eslint-plugin-js/configs/disable-legacy.ts) (非推奨ルールの無効化)
+  - [stylisticTs.configs['disable-legacy']](https://github.com/eslint-stylistic/eslint-stylistic/blob/main/packages/eslint-plugin-ts/configs/disable-legacy.ts) (非推奨ルールの無効化)
+
+- **typescript** (recommended + stylistic)
+  - **typescript/recommended** のすべて
+  - **typescript/stylistic** のすべて
+
+- **react/recommended**
   - [reactPlugin.configs.recommended](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/configs/recommended.js)
   - [reactPlugin.configs['jsx-runtime']](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/configs/jsx-runtime.js)
   - [hooksPlugin.configs.recommended](https://github.com/facebook/react/blob/main/packages/eslint-plugin-react-hooks/src/index.js)
   - [jsxA11yPlugin.flatConfigs.recommended](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/src/index.js)
 
+- **react/stylistic**
+  - [stylisticJsx.configs['disable-legacy']](https://github.com/eslint-stylistic/eslint-stylistic/blob/main/packages/eslint-plugin-jsx/configs/disable-legacy.ts) (非推奨ルールの無効化)
+
+- **react** (recommended + stylistic)
+  - **react/recommended** のすべて
+  - **react/stylistic** のすべて
+
+### オプション
+
 `@taiyme/eslint-config` は、次のオプションを含むため、指定する必要はありません。
 
-- **configs.typescript**
+- **typescript系すべて**
   - languageOptions.ecmaVersion: `'latest'`
   - languageOptions.sourceType: `'module'`
 
-- **configs.react**
+- **react系すべて**
   - languageOptions.ecmaVersion: `'latest'`
   - languageOptions.sourceType: `'module'`
   - languageOptions.parserOptions.ecmaFeatures.jsx: `true`
   - settings.react.version: `'detect'`
+
+### 思想
 
 `@taiyme/eslint-config` は、次の思想を強く支持しているため、抗おうとしないでください。
 
