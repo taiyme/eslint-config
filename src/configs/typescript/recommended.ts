@@ -1,9 +1,8 @@
 import eslint from '@eslint/js';
+import type { ESLint, Linter } from 'eslint';
 import simpleImportSortPlugin from 'eslint-plugin-simple-import-sort';
 import unusedImportsPlugin from 'eslint-plugin-unused-imports';
 import tsEslint from 'typescript-eslint';
-
-import type * as ESLint from '../../types/eslint.js';
 
 const plugins = {
   '@typescript-eslint': tsEslint.plugin as ESLint.Plugin,
@@ -11,9 +10,9 @@ const plugins = {
   'unused-imports': unusedImportsPlugin as ESLint.Plugin,
 } as const satisfies Record<string, ESLint.Plugin>;
 
-const rules: ESLint.Rules = {
+const rules = {
   ...eslint.configs.recommended.rules,
-  ...(Object.assign({}, ...tsEslint.configs.recommended.map((config) => config.rules)) as ESLint.Rules),
+  ...(Object.assign({}, ...tsEslint.configs.recommended.map((config) => config.rules)) as Linter.RulesRecord),
 
   //#region JavaScript
   eqeqeq: ['error', 'always', {
@@ -70,7 +69,7 @@ const rules: ESLint.Rules = {
     argsIgnorePattern: '^_',
   }],
   //#endregion unused-imports
-} as const satisfies ESLint.Rules;
+} as const satisfies Linter.RulesRecord as Linter.RulesRecord; // satisfies T as T は型安全かつ型制限するため
 
 export const typescriptRecommended = [
   {
@@ -88,4 +87,4 @@ export const typescriptRecommended = [
     name: 'taiyme/typescript/recommended:rules',
     rules,
   },
-] as const satisfies ESLint.Config[];
+] as const satisfies Linter.Config[];

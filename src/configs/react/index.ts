@@ -1,8 +1,9 @@
-import type * as ESLint from '../../types/eslint.js';
+import type { Linter } from 'eslint';
+
 import { reactRecommended } from './recommended.js';
 import { reactStylistic } from './stylistic.js';
 
 export const react = [
   ...reactRecommended,
   ...reactStylistic,
-] as const satisfies ESLint.Config[];
+] as const satisfies Linter.Config[];

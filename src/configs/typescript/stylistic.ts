@@ -1,14 +1,13 @@
 import stylisticJs from '@stylistic/eslint-plugin-js';
 import stylisticTs from '@stylistic/eslint-plugin-ts';
-
-import type * as ESLint from '../../types/eslint.js';
+import type { ESLint, Linter } from 'eslint';
 
 const plugins = {
   '@stylistic/js': stylisticJs as ESLint.Plugin,
   '@stylistic/ts': stylisticTs as ESLint.Plugin,
 } as const satisfies Record<string, ESLint.Plugin>;
 
-const rules: ESLint.Rules = {
+const rules = {
   ...stylisticJs.configs['disable-legacy'].rules,
   ...stylisticTs.configs['disable-legacy'].rules,
 
@@ -154,7 +153,7 @@ const rules: ESLint.Rules = {
     },
   }],
   //#endregion TypeScript (Stylistic)
-} as const satisfies ESLint.Rules;
+} as const satisfies Linter.RulesRecord as Linter.RulesRecord; // satisfies T as T は型安全かつ型制限するため
 
 export const typescriptStylistic = [
   {
@@ -172,4 +171,4 @@ export const typescriptStylistic = [
     name: 'taiyme/typescript/stylistic:rules',
     rules,
   },
-] as const satisfies ESLint.Config[];
+] as const satisfies Linter.Config[];

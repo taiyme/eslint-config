@@ -1,12 +1,11 @@
 import stylisticJsx from '@stylistic/eslint-plugin-jsx';
-
-import type * as ESLint from '../../types/eslint.js';
+import type { ESLint, Linter } from 'eslint';
 
 const plugins = {
   '@stylistic/jsx': stylisticJsx as ESLint.Plugin,
 } as const satisfies Record<string, ESLint.Plugin>;
 
-const rules: ESLint.Rules = {
+const rules = {
   ...stylisticJsx.configs['disable-legacy'].rules,
 
   //#region JSX (Stylistic)
@@ -62,7 +61,7 @@ const rules: ESLint.Rules = {
     propertyValue: 'parens-new-line',
   }],
   //#endregion JSX (Stylistic)
-} as const satisfies ESLint.Rules;
+} as const satisfies Linter.RulesRecord as Linter.RulesRecord; // satisfies T as T は型安全かつ型制限するため
 
 export const reactStylistic = [
   {
@@ -90,4 +89,4 @@ export const reactStylistic = [
     name: 'taiyme/react/stylistic:rules',
     rules,
   },
-] as const satisfies ESLint.Config[];
+] as const satisfies Linter.Config[];
