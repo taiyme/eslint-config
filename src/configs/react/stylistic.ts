@@ -65,7 +65,7 @@ const rules = {
 
 export const reactStylistic = [
   {
-    name: 'taiyme/react/stylistic:setup',
+    name: 'taiyme/react-stylistic/setup',
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -82,11 +82,11 @@ export const reactStylistic = [
     },
   },
   {
-    name: 'taiyme/react/stylistic:plugins',
+    name: 'taiyme/react-stylistic/plugins',
     plugins,
   },
   {
-    name: 'taiyme/react/stylistic:rules',
+    name: 'taiyme/react-stylistic/rules',
     rules,
   },
 ] as const satisfies Linter.Config[];

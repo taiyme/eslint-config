@@ -24,7 +24,7 @@ const rules = {
 
 export const reactRecommended = [
   {
-    name: 'taiyme/react/recommended:setup',
+    name: 'taiyme/react-recommended/setup',
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -41,11 +41,11 @@ export const reactRecommended = [
     },
   },
   {
-    name: 'taiyme/react/recommended:plugins',
+    name: 'taiyme/react-recommended/plugins',
     plugins,
   },
   {
-    name: 'taiyme/react/recommended:rules',
+    name: 'taiyme/react-recommended/rules',
     rules,
   },
 ] as const satisfies Linter.Config[];

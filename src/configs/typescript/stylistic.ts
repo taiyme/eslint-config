@@ -157,18 +157,18 @@ const rules = {
 
 export const typescriptStylistic = [
   {
-    name: 'taiyme/typescript/stylistic:setup',
+    name: 'taiyme/typescript-stylistic/setup',
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
     },
   },
   {
-    name: 'taiyme/typescript/stylistic:plugins',
+    name: 'taiyme/typescript-stylistic/plugins',
     plugins,
   },
   {
-    name: 'taiyme/typescript/stylistic:rules',
+    name: 'taiyme/typescript-stylistic/rules',
     rules,
   },
 ] as const satisfies Linter.Config[];

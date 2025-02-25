@@ -73,18 +73,18 @@ const rules = {
 
 export const typescriptRecommended = [
   {
-    name: 'taiyme/typescript/recommended:setup',
+    name: 'taiyme/typescript-recommended/setup',
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
     },
   },
   {
-    name: 'taiyme/typescript/recommended:plugins',
+    name: 'taiyme/typescript-recommended/plugins',
     plugins,
   },
   {
-    name: 'taiyme/typescript/recommended:rules',
+    name: 'taiyme/typescript-recommended/rules',
     rules,
   },
 ] as const satisfies Linter.Config[];
