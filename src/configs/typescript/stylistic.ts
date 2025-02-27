@@ -1,13 +1,17 @@
 import stylisticJs from '@stylistic/eslint-plugin-js';
 import stylisticTs from '@stylistic/eslint-plugin-ts';
 import type { ESLint, Linter } from 'eslint';
+import tsEslint from 'typescript-eslint';
 
-const plugins = {
+import { typescriptSharedSetup } from './shared.js';
+
+export const typescriptStylisticPlugins = {
+  '@typescript-eslint': tsEslint.plugin as ESLint.Plugin,
   '@stylistic/js': stylisticJs as ESLint.Plugin,
   '@stylistic/ts': stylisticTs as ESLint.Plugin,
 } as const satisfies Record<string, ESLint.Plugin>;
 
-const rules = {
+export const typescriptStylisticRules = {
   ...stylisticJs.configs['disable-legacy'].rules,
   ...stylisticTs.configs['disable-legacy'].rules,
 
@@ -155,20 +159,17 @@ const rules = {
   //#endregion TypeScript (Stylistic)
 } as const satisfies Linter.RulesRecord as Linter.RulesRecord; // satisfies T as T は型安全かつ型制限するため
 
-export const typescriptStylistic = [
+export const typescriptStylisticConfigs = [
   {
-    name: 'taiyme/typescript-stylistic/setup',
-    languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-    },
+    ...typescriptSharedSetup,
+    name: 'taiyme/typescript/stylistic/setup',
   },
   {
-    name: 'taiyme/typescript-stylistic/plugins',
-    plugins,
+    name: 'taiyme/typescript/stylistic/plugins',
+    plugins: typescriptStylisticPlugins,
   },
   {
-    name: 'taiyme/typescript-stylistic/rules',
-    rules,
+    name: 'taiyme/typescript/stylistic/rules',
+    rules: typescriptStylisticRules,
   },
 ] as const satisfies Linter.Config[];

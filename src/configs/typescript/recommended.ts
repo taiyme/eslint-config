@@ -4,13 +4,15 @@ import simpleImportSortPlugin from 'eslint-plugin-simple-import-sort';
 import unusedImportsPlugin from 'eslint-plugin-unused-imports';
 import tsEslint from 'typescript-eslint';
 
-const plugins = {
+import { typescriptSharedSetup } from './shared.js';
+
+export const typescriptRecommendedPlugins = {
   '@typescript-eslint': tsEslint.plugin as ESLint.Plugin,
   'simple-import-sort': simpleImportSortPlugin as ESLint.Plugin,
   'unused-imports': unusedImportsPlugin as ESLint.Plugin,
 } as const satisfies Record<string, ESLint.Plugin>;
 
-const rules = {
+export const typescriptRecommendedRules = {
   ...eslint.configs.recommended.rules,
   ...(Object.assign({}, ...tsEslint.configs.recommended.map((config) => config.rules)) as Linter.RulesRecord),
 
@@ -71,20 +73,17 @@ const rules = {
   //#endregion unused-imports
 } as const satisfies Linter.RulesRecord as Linter.RulesRecord; // satisfies T as T は型安全かつ型制限するため
 
-export const typescriptRecommended = [
+export const typescriptRecommendedConfigs = [
   {
-    name: 'taiyme/typescript-recommended/setup',
-    languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-    },
+    ...typescriptSharedSetup,
+    name: 'taiyme/typescript/recommended/setup',
   },
   {
-    name: 'taiyme/typescript-recommended/plugins',
-    plugins,
+    name: 'taiyme/typescript/recommended/plugins',
+    plugins: typescriptRecommendedPlugins,
   },
   {
-    name: 'taiyme/typescript-recommended/rules',
-    rules,
+    name: 'taiyme/typescript/recommended/rules',
+    rules: typescriptRecommendedRules,
   },
 ] as const satisfies Linter.Config[];

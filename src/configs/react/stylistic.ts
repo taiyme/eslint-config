@@ -1,11 +1,16 @@
+import { fixupPluginRules } from '@eslint/compat';
 import stylisticJsx from '@stylistic/eslint-plugin-jsx';
 import type { ESLint, Linter } from 'eslint';
+import reactPlugin from 'eslint-plugin-react';
 
-const plugins = {
+import { reactSharedSetup } from './shared.js';
+
+export const reactStylisticPlugins = {
+  react: fixupPluginRules(reactPlugin) as ESLint.Plugin,
   '@stylistic/jsx': stylisticJsx as ESLint.Plugin,
 } as const satisfies Record<string, ESLint.Plugin>;
 
-const rules = {
+export const reactStylisticRules = {
   ...stylisticJsx.configs['disable-legacy'].rules,
 
   //#region JSX (Stylistic)
@@ -63,30 +68,17 @@ const rules = {
   //#endregion JSX (Stylistic)
 } as const satisfies Linter.RulesRecord as Linter.RulesRecord; // satisfies T as T は型安全かつ型制限するため
 
-export const reactStylistic = [
+export const reactStylisticConfigs = [
   {
-    name: 'taiyme/react-stylistic/setup',
-    languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
-    },
-    settings: {
-      react: {
-        version: 'detect',
-      },
-    },
+    ...reactSharedSetup,
+    name: 'taiyme/react/stylistic/setup',
   },
   {
-    name: 'taiyme/react-stylistic/plugins',
-    plugins,
+    name: 'taiyme/react/stylistic/plugins',
+    plugins: reactStylisticPlugins,
   },
   {
-    name: 'taiyme/react-stylistic/rules',
-    rules,
+    name: 'taiyme/react/stylistic/rules',
+    rules: reactStylisticRules,
   },
 ] as const satisfies Linter.Config[];
