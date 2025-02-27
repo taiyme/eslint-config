@@ -24,10 +24,6 @@ export const typescriptStylisticRules = {
     before: true,
     after: true,
   }],
-  '@stylistic/js/comma-spacing': ['warn', {
-    before: false,
-    after: true,
-  }],
   '@stylistic/js/comma-style': ['error', 'last'],
   '@stylistic/js/computed-property-spacing': ['warn', 'never'],
   '@stylistic/js/dot-location': ['warn', 'property'],
@@ -63,10 +59,6 @@ export const typescriptStylisticRules = {
     },
   }],
   '@stylistic/js/rest-spread-spacing': ['warn', 'never'],
-  '@stylistic/js/semi-spacing': ['warn', {
-    before: false,
-    after: true,
-  }],
   '@stylistic/js/semi-style': ['error', 'last'],
   '@stylistic/js/space-in-parens': ['warn', 'never'],
   '@stylistic/js/space-unary-ops': 'warn',
@@ -90,6 +82,10 @@ export const typescriptStylisticRules = {
   '@stylistic/ts/block-spacing': ['warn', 'always'],
   '@stylistic/ts/brace-style': ['error', '1tbs'],
   '@stylistic/ts/comma-dangle': ['error', 'always-multiline'],
+  '@stylistic/ts/comma-spacing': ['warn', {
+    before: false,
+    after: true,
+  }],
   '@stylistic/ts/function-call-spacing': ['error', 'never'],
   '@stylistic/ts/indent': ['warn', 2],
   '@stylistic/ts/key-spacing': ['warn', {
@@ -139,6 +135,10 @@ export const typescriptStylisticRules = {
   '@stylistic/ts/quote-props': ['warn', 'as-needed'],
   '@stylistic/ts/quotes': ['warn', 'single'],
   '@stylistic/ts/semi': ['error', 'always'],
+  '@stylistic/ts/semi-spacing': ['warn', {
+    before: false,
+    after: true,
+  }],
   '@stylistic/ts/space-before-blocks': ['warn', 'always'],
   '@stylistic/ts/space-before-function-paren': ['warn', {
     anonymous: 'never',
