@@ -48,6 +48,11 @@ export const typescriptStylisticRules = {
   '@stylistic/js/no-mixed-operators': 'error',
   '@stylistic/js/no-mixed-spaces-and-tabs': 'error',
   '@stylistic/js/no-multi-spaces': 'warn',
+  '@stylistic/js/no-multiple-empty-lines': ['warn', {
+    max: Infinity,
+    maxBOF: 0,
+    maxEOF: 0,
+  }],
   '@stylistic/js/no-tabs': 'error',
   '@stylistic/js/no-trailing-spaces': 'warn',
   '@stylistic/js/no-whitespace-before-property': 'warn',
