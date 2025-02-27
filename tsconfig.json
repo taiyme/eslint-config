@@ -17,11 +17,8 @@
     "skipLibCheck": false,
   },
   "include": [
-    "**/*.js",
-    "**/*.ts",
+    "./*",
+    "./src/**/*",
   ],
-  "exclude": [
-    "./dist/**",
-    "./node_modules/**",
-  ],
+  "exclude": [],
 }
