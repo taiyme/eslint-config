@@ -14,23 +14,6 @@ declare module 'eslint-plugin-jsx-a11y' {
   export default plugin;
 }
 
-declare module 'eslint-plugin-react' {
-  const plugin: Readonly<
-    & Omit<import('eslint').ESLint.Plugin, 'configs'>
-    & {
-      configs: {
-        recommended: {
-          rules: import('eslint').Linter.RulesRecord;
-        };
-        'jsx-runtime': {
-          rules: import('eslint').Linter.RulesRecord;
-        };
-      };
-    }
-  >;
-  export default plugin;
-}
-
 declare module 'eslint-plugin-react-hooks' {
   const plugin: Readonly<
     & Omit<import('eslint').ESLint.Plugin, 'configs'>
