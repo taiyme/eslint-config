@@ -1,13 +1,11 @@
-// @ts-check
-
 import taiymeConfig from '@taiyme/eslint-config';
 import tsEslintParser from '@typescript-eslint/parser';
+import type { Linter } from 'eslint';
 import gitignore from 'eslint-config-flat-gitignore';
 import globals from 'globals';
 
 const files = ['**/*.{js,ts}'];
 
-/** @type {import('eslint').Linter.Config[]} */
 export default [
   gitignore(),
   {
@@ -27,4 +25,4 @@ export default [
     ...config,
     files,
   })),
-];
+] as const satisfies Linter.Config[];
