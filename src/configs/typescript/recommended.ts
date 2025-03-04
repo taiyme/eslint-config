@@ -14,7 +14,7 @@ export const typescriptRecommendedPlugins = {
 
 export const typescriptRecommendedRules = {
   ...eslint.configs.recommended.rules,
-  ...(Object.assign({}, ...tsEslint.configs.recommended.map((config) => config.rules)) as Linter.RulesRecord),
+  ...(Object.assign({}, ...tsEslint.configs.recommended.map((config) => config.rules))),
 
   //#region JavaScript
   eqeqeq: ['error', 'always', {
@@ -25,6 +25,7 @@ export const typescriptRecommendedRules = {
   'no-self-compare': 'error',
   'no-undef': 'error',
   'no-unused-vars': 'off', // unused-importsで対応
+  'one-var': ['warn', 'never'],
   'prefer-template': 'warn',
   'sort-imports': 'off',
   //#endregion JavaScript
