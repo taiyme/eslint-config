@@ -18,7 +18,7 @@ on:
         required: false
 
 concurrency:
-  group: release
+  group: ${{ github.workflow }}
   cancel-in-progress: false
 
 permissions:

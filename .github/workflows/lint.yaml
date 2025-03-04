@@ -9,6 +9,13 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
   pre-checkout:
     name: Pre checkout
@@ -54,4 +61,7 @@ jobs:
 
       - name: Run eslint
         run: |
-          pnpm lint --cache --cache-location ${{ env.eslint-cache-path }} --cache-strategy content
+          pnpm run lint \
+            --cache \
+            --cache-location '${{ env.eslint-cache-path }}' \
+            --cache-strategy content

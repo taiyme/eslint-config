@@ -6,7 +6,7 @@ on:
       - published
 
 concurrency:
-  group: publish-to-npm
+  group: ${{ github.workflow }}
   cancel-in-progress: false
 
 permissions:
@@ -51,4 +51,4 @@ jobs:
 
       - name: Publish
         run: |
-          pnpm publish --provenance --no-git-checks --access public
+          pnpm publish --provenance --no-git-checks --access=public

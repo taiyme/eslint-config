@@ -6,8 +6,8 @@ on:
       - published
 
 concurrency:
-  group: deploy-to-pages
-  cancel-in-progress: false
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -38,7 +38,9 @@ jobs:
       - name: Build
         run: |
           pnpm install --frozen-lockfile
-          pnpm dlx @eslint/config-inspector@latest build --config=./eslint.config.inspector.ts --files=false
+          pnpm dlx @eslint/config-inspector@latest build \
+            --config ./eslint.config.inspector.ts \
+            --files false
 
       - name: Upload artifacts
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
