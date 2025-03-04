@@ -99,7 +99,7 @@ jobs:
       - bump-version-update
     steps:
       - name: Create GitHub App Token
-        uses: actions/create-github-app-token@0d564482f06ca65fa9e77e2510873638c82206f2 # v1.11.5
+        uses: actions/create-github-app-token@21cfef2b496dd8ef5b904c159339626a10ad380e # v1.11.6
         id: app-token
         with:
           app-id: ${{ secrets.RELEASE_APP_ID }}
@@ -126,7 +126,7 @@ jobs:
           git switch -c ${{ needs.parse-version.outputs.new_ref }}
 
       - name: Download artifacts
-        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+        uses: actions/download-artifact@cc203385981b70ca67e1cc392babf9cc229d5806 # v4.1.9
         with:
           name: bump_version_files
 
@@ -149,7 +149,7 @@ jobs:
       pr_number: ${{ steps.create-pr.outputs.pr_number }}
     steps:
       - name: Create GitHub App Token
-        uses: actions/create-github-app-token@0d564482f06ca65fa9e77e2510873638c82206f2 # v1.11.5
+        uses: actions/create-github-app-token@21cfef2b496dd8ef5b904c159339626a10ad380e # v1.11.6
         id: app-token
         with:
           app-id: ${{ secrets.RELEASE_APP_ID }}
@@ -185,7 +185,7 @@ jobs:
       - create-pr
     steps:
       - name: Create GitHub App Token
-        uses: actions/create-github-app-token@0d564482f06ca65fa9e77e2510873638c82206f2 # v1.11.5
+        uses: actions/create-github-app-token@21cfef2b496dd8ef5b904c159339626a10ad380e # v1.11.6
         id: app-token
         with:
           app-id: ${{ secrets.RELEASE_APP_ID }}
@@ -249,7 +249,7 @@ jobs:
       id-token: write
     steps:
       - name: Create GitHub App Token
-        uses: actions/create-github-app-token@0d564482f06ca65fa9e77e2510873638c82206f2 # v1.11.5
+        uses: actions/create-github-app-token@21cfef2b496dd8ef5b904c159339626a10ad380e # v1.11.6
         id: app-token
         with:
           app-id: ${{ secrets.RELEASE_APP_ID }}
