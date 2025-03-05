@@ -29,7 +29,7 @@ export const typescriptStylisticRules = {
   '@stylistic/js/dot-location': ['warn', 'property'],
   '@stylistic/js/eol-last': ['error', 'always'],
   '@stylistic/js/function-call-argument-newline': ['warn', 'consistent'],
-  '@stylistic/js/function-paren-newline': ['warn', 'multiline'],
+  '@stylistic/js/function-paren-newline': ['warn', 'multiline-arguments'],
   '@stylistic/js/generator-star-spacing': ['warn', {
     before: true,
     after: true,
