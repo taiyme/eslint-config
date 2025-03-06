@@ -3,6 +3,7 @@ import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
 import reactPlugin from 'eslint-plugin-react';
 import hooksPlugin from 'eslint-plugin-react-hooks';
 
+import { excludeLegacyRules } from '../../utils/exclude-legacy-rules.js';
 import { reactSharedSetup } from './shared.js';
 
 export const reactRecommendedPlugins = {
@@ -12,10 +13,12 @@ export const reactRecommendedPlugins = {
 } as const satisfies Record<string, ESLint.Plugin>;
 
 export const reactRecommendedRules = {
-  ...reactPlugin.configs.flat.recommended?.rules,
-  ...reactPlugin.configs.flat['jsx-runtime']?.rules,
-  ...hooksPlugin.configs['recommended-latest'].rules,
-  ...jsxA11yPlugin.flatConfigs.recommended.rules,
+  ...excludeLegacyRules({
+    ...reactPlugin.configs.flat.recommended?.rules,
+    ...reactPlugin.configs.flat['jsx-runtime']?.rules,
+    ...hooksPlugin.configs['recommended-latest'].rules,
+    ...jsxA11yPlugin.flatConfigs.recommended.rules,
+  }),
 
   //#region React
   'react/prop-types': 'off',

@@ -1,9 +1,10 @@
-import eslint from '@eslint/js';
+import eslintJs from '@eslint/js';
 import type { ESLint, Linter } from 'eslint';
 import simpleImportSortPlugin from 'eslint-plugin-simple-import-sort';
 import unusedImportsPlugin from 'eslint-plugin-unused-imports';
 import tsEslint from 'typescript-eslint';
 
+import { excludeLegacyRules } from '../../utils/exclude-legacy-rules.js';
 import { typescriptSharedSetup } from './shared.js';
 
 export const typescriptRecommendedPlugins = {
@@ -13,8 +14,10 @@ export const typescriptRecommendedPlugins = {
 } as const satisfies Record<string, ESLint.Plugin>;
 
 export const typescriptRecommendedRules = {
-  ...eslint.configs.recommended.rules,
-  ...(Object.assign({}, ...tsEslint.configs.recommended.map((config) => config.rules))),
+  ...excludeLegacyRules({
+    ...eslintJs.configs.recommended.rules,
+    ...(Object.assign({}, ...tsEslint.configs.recommended.map((config) => config.rules))),
+  }),
 
   //#region JavaScript
   eqeqeq: ['error', 'always', {
