@@ -92,7 +92,10 @@ export const typescriptStylisticRules = {
     after: true,
   }],
   '@stylistic/ts/function-call-spacing': ['error', 'never'],
-  '@stylistic/ts/indent': ['warn', 2],
+  '@stylistic/ts/indent': ['warn', 2, {
+    ignoredNodes: ['JSXElement', 'JSXElement *'],
+    SwitchCase: 1,
+  }],
   '@stylistic/ts/key-spacing': ['warn', {
     beforeColon: false,
     afterColon: true,
