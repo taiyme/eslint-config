@@ -39,6 +39,7 @@ export const reactStylisticRules = {
   '@stylistic/jsx/jsx-equals-spacing': ['warn', 'never'],
   '@stylistic/jsx/jsx-first-prop-new-line': ['warn', 'multiline-multiprop'],
   '@stylistic/jsx/jsx-function-call-newline': ['warn', 'multiline'],
+  '@stylistic/jsx/jsx-indent': ['warn', 2],
   '@stylistic/jsx/jsx-indent-props': ['warn', 2],
   '@stylistic/jsx/jsx-max-props-per-line': ['warn', {
     maximum: {
