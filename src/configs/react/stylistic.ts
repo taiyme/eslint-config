@@ -1,4 +1,3 @@
-import { fixupPluginRules } from '@eslint/compat';
 import stylisticJsx from '@stylistic/eslint-plugin-jsx';
 import type { ESLint, Linter } from 'eslint';
 import reactPlugin from 'eslint-plugin-react';
@@ -6,7 +5,7 @@ import reactPlugin from 'eslint-plugin-react';
 import { reactSharedSetup } from './shared.js';
 
 export const reactStylisticPlugins = {
-  react: fixupPluginRules(reactPlugin) as ESLint.Plugin,
+  react: reactPlugin as ESLint.Plugin,
   '@stylistic/jsx': stylisticJsx as ESLint.Plugin,
 } as const satisfies Record<string, ESLint.Plugin>;
 
