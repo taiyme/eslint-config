@@ -44,6 +44,7 @@ export const typescriptStylisticRules = {
     max: 1,
   }],
   '@stylistic/js/new-parens': ['error', 'always'],
+  '@stylistic/js/no-confusing-arrow': 'warn',
   '@stylistic/js/no-floating-decimal': 'error',
   '@stylistic/js/no-mixed-operators': 'error',
   '@stylistic/js/no-mixed-spaces-and-tabs': 'error',
