@@ -1,4 +1,3 @@
-import { fixupPluginRules } from '@eslint/compat';
 import type { ESLint, Linter } from 'eslint';
 import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
 import reactPlugin from 'eslint-plugin-react';
@@ -7,15 +6,15 @@ import hooksPlugin from 'eslint-plugin-react-hooks';
 import { reactSharedSetup } from './shared.js';
 
 export const reactRecommendedPlugins = {
-  react: fixupPluginRules(reactPlugin) as ESLint.Plugin,
-  'react-hooks': fixupPluginRules(hooksPlugin) as ESLint.Plugin,
-  'jsx-a11y': fixupPluginRules(jsxA11yPlugin) as ESLint.Plugin,
+  react: reactPlugin as ESLint.Plugin,
+  'react-hooks': hooksPlugin as ESLint.Plugin,
+  'jsx-a11y': jsxA11yPlugin as ESLint.Plugin,
 } as const satisfies Record<string, ESLint.Plugin>;
 
 export const reactRecommendedRules = {
-  ...reactPlugin.configs.recommended.rules,
-  ...reactPlugin.configs['jsx-runtime'].rules,
-  ...hooksPlugin.configs.recommended.rules,
+  ...reactPlugin.configs.flat.recommended?.rules,
+  ...reactPlugin.configs.flat['jsx-runtime']?.rules,
+  ...hooksPlugin.configs['recommended-latest'].rules,
   ...jsxA11yPlugin.flatConfigs.recommended.rules,
 
   //#region React
