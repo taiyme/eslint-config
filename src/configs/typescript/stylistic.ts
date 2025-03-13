@@ -1,10 +1,10 @@
-import stylistic from '@stylistic/eslint-plugin';
+import stylisticPlugin from '@stylistic/eslint-plugin';
 import type { ESLint, Linter } from 'eslint';
 
 import { typescriptSharedSetup } from './shared.js';
 
 export const typescriptStylisticPlugins = {
-  '@stylistic': stylistic as ESLint.Plugin,
+  '@stylistic': stylisticPlugin as ESLint.Plugin,
 } as const satisfies Record<string, ESLint.Plugin>;
 
 export const typescriptStylisticRules = {

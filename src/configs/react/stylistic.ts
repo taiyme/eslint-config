@@ -1,10 +1,10 @@
-import stylistic from '@stylistic/eslint-plugin';
+import stylisticPlugin from '@stylistic/eslint-plugin';
 import type { ESLint, Linter } from 'eslint';
 
 import { reactSharedSetup } from './shared.js';
 
 export const reactStylisticPlugins = {
-  '@stylistic': stylistic as ESLint.Plugin,
+  '@stylistic': stylisticPlugin as ESLint.Plugin,
 } as const satisfies Record<string, ESLint.Plugin>;
 
 export const reactStylisticRules = {
