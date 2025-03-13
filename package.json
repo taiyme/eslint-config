@@ -1,6 +1,6 @@
 {
   "name": "@taiyme/eslint-config",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "private": false,
   "description": "taiyのためのESLint共有設定",
   "homepage": "https://github.com/taiyme/eslint-config",
