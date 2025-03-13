@@ -26,6 +26,7 @@
   "scripts": {
     "prebuild": "node ./scripts/prebuild.js",
     "build": "tsc --project ./tsconfig.build.json",
+    "postbuild": "node ./scripts/postbuild.js",
     "clean": "node ./scripts/clean.js",
     "postclean": "pnpm store prune",
     "lint": "eslint .",
