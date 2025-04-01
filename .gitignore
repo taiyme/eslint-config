@@ -1,3 +1,16 @@
-/node_modules
-/dist
+# prod
+dist/
+
+# dev
+.eslint-config-inspector/
+
+# deps
+node_modules/
+
+# logs
+logs/
+*.log
+pnpm-debug.log*
+
+# misc
 .DS_Store
