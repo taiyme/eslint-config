@@ -1,0 +1,6 @@
+[tools]
+node = "22.14.0"
+pnpm = "10.7.0"
+
+[settings]
+pin = true
