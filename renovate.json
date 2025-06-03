@@ -32,7 +32,7 @@
     {
       "groupName": "runtime dependencies",
       "groupSlug": "runtime-deps",
-      "matchDepNames": ["node", "@types/node", "pnpm"]
+      "matchDepNames": ["node", "@types/node", "pnpm", "npm:pnpm"]
     }
   ],
   "lockFileMaintenance": {
