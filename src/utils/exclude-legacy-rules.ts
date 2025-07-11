@@ -1,5 +1,5 @@
-import stylisticPlugin from '@stylistic/eslint-plugin';
 import type { Linter } from 'eslint';
+import stylisticPlugin from '@stylistic/eslint-plugin';
 
 const LEGACY_RULE_LIST = Object.keys(stylisticPlugin.configs['disable-legacy'].rules ?? {});
 

@@ -1,5 +1,5 @@
-import taiymeConfig from '@taiyme/eslint-config';
 import type { Linter } from 'eslint';
+import taiymeConfig from '@taiyme/eslint-config';
 
 export default [
   ...taiymeConfig.configs['typescript/recommended'],

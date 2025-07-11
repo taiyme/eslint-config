@@ -31,9 +31,9 @@ pnpm add -D eslint jiti globals @typescript-eslint/parser eslint-config-flat-git
 ※ `@taiyme/eslint-config` は `files` を指定していないため、mapメソッドなどを利用して自分で指定してください。
 
 ```js
+import type { Linter } from 'eslint';
 import taiymeConfig from '@taiyme/eslint-config';
 import tsEslintParser from '@typescript-eslint/parser';
-import type { Linter } from 'eslint';
 import gitignore from 'eslint-config-flat-gitignore';
 import globals from 'globals';
 

@@ -1,15 +1,18 @@
-import eslintJs from '@eslint/js';
 import type { ESLint, Linter } from 'eslint';
-import simpleImportSortPlugin from 'eslint-plugin-simple-import-sort';
+import eslintJs from '@eslint/js';
+import importPlugin from 'eslint-plugin-import';
+import perfectionistPlugin from 'eslint-plugin-perfectionist';
 import unusedImportsPlugin from 'eslint-plugin-unused-imports';
 import tsEslint from 'typescript-eslint';
 
+import { detectRuntime } from '../../utils/detect-runtime.js';
 import { excludeLegacyRules } from '../../utils/exclude-legacy-rules.js';
 import { typescriptSharedSetup } from './shared.js';
 
 export const typescriptRecommendedPlugins = {
   '@typescript-eslint': tsEslint.plugin as ESLint.Plugin,
-  'simple-import-sort': simpleImportSortPlugin as ESLint.Plugin,
+  import: importPlugin as ESLint.Plugin,
+  perfectionist: perfectionistPlugin as ESLint.Plugin,
   'unused-imports': unusedImportsPlugin as ESLint.Plugin,
 } as const satisfies Record<string, ESLint.Plugin>;
 
@@ -36,7 +39,7 @@ export const typescriptRecommendedRules = {
   //#region TypeScript
   '@typescript-eslint/consistent-type-imports': ['error', {
     prefer: 'type-imports',
-    fixStyle: 'inline-type-imports',
+    fixStyle: 'separate-type-imports',
     disallowTypeAnnotations: true,
   }],
   '@typescript-eslint/dot-notation': 'warn',
@@ -61,10 +64,37 @@ export const typescriptRecommendedRules = {
   '@typescript-eslint/prefer-optional-chain': 'warn',
   //#endregion TypeScript
 
-  //#region simple-import-sort
-  'simple-import-sort/exports': 'warn',
-  'simple-import-sort/imports': 'warn',
-  //#endregion simple-import-sort
+  //#region import
+  'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
+  'import/enforce-node-protocol-usage': ['warn', 'always'],
+  'import/no-duplicates': ['warn', {
+    'prefer-inline': false,
+  }],
+  //#endregion import
+
+  //#region perfectionist
+  'perfectionist/sort-exports': 'warn',
+  'perfectionist/sort-imports': ['warn', {
+    newlinesBetween: 0,
+    groups: [
+      'type-builtin', 'builtin',
+      { newlinesBetween: 1 },
+      'type-external', 'external',
+      { newlinesBetween: 1 },
+      'type-internal', 'internal',
+      { newlinesBetween: 1 },
+      'type-parent', 'type-sibling', 'type-index',
+      'parent', 'sibling', 'index',
+      { newlinesBetween: 1 },
+      'object',
+      { newlinesBetween: 1 },
+      'unknown',
+    ],
+    environment: detectRuntime(),
+  }],
+  'perfectionist/sort-named-exports': 'warn',
+  'perfectionist/sort-named-imports': 'warn',
+  //#endregion perfectionist
 
   //#region unused-imports
   'unused-imports/no-unused-imports': 'warn',
