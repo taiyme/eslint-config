@@ -1,13 +1,14 @@
-import type { ESLint, Linter } from 'eslint';
+import type { Linter } from 'eslint';
 import stylisticPlugin from '@stylistic/eslint-plugin';
 
 import { typescriptSharedSetup } from '@/configs/typescript/shared.js';
+import { widenTypePlugins, widenTypeRules } from '@/utils/widen-types.js';
 
-export const typescriptStylisticPlugins = {
-  '@stylistic': stylisticPlugin as ESLint.Plugin,
-} as const satisfies Record<string, ESLint.Plugin>;
+export const typescriptStylisticPlugins = widenTypePlugins({
+  '@stylistic': stylisticPlugin,
+});
 
-export const typescriptStylisticRules = {
+export const typescriptStylisticRules = widenTypeRules({
   '@stylistic/array-bracket-newline': ['warn', 'consistent'],
   '@stylistic/array-bracket-spacing': ['warn', 'never'],
   '@stylistic/array-element-newline': 'off',
@@ -182,7 +183,7 @@ export const typescriptStylisticRules = {
     before: false,
     after: true,
   }],
-} as const satisfies Linter.RulesRecord as Linter.RulesRecord; // satisfies T as T は型安全かつ型制限するため
+});
 
 export const typescriptStylisticConfigs = [
   {

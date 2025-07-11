@@ -8,15 +8,16 @@ import tsEslint from 'typescript-eslint';
 import { typescriptSharedSetup } from '@/configs/typescript/shared.js';
 import { detectRuntime } from '@/utils/detect-runtime.js';
 import { excludeLegacyRules } from '@/utils/exclude-legacy-rules.js';
+import { widenTypePlugins, widenTypeRules } from '@/utils/widen-types.js';
 
-export const typescriptRecommendedPlugins = {
+export const typescriptRecommendedPlugins = widenTypePlugins({
   '@typescript-eslint': tsEslint.plugin as ESLint.Plugin,
-  import: importPlugin as ESLint.Plugin,
-  perfectionist: perfectionistPlugin as ESLint.Plugin,
-  'unused-imports': unusedImportsPlugin as ESLint.Plugin,
-} as const satisfies Record<string, ESLint.Plugin>;
+  import: importPlugin,
+  perfectionist: perfectionistPlugin,
+  'unused-imports': unusedImportsPlugin,
+});
 
-export const typescriptRecommendedRules = {
+export const typescriptRecommendedRules = widenTypeRules({
   ...excludeLegacyRules({
     ...eslintJs.configs.recommended.rules,
     ...(Object.assign({}, ...tsEslint.configs.recommended.map((config) => config.rules))),
@@ -105,7 +106,7 @@ export const typescriptRecommendedRules = {
     argsIgnorePattern: '^_',
   }],
   //#endregion unused-imports
-} as const satisfies Linter.RulesRecord as Linter.RulesRecord; // satisfies T as T は型安全かつ型制限するため
+});
 
 export const typescriptRecommendedConfigs = [
   {

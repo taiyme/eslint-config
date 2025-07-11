@@ -5,14 +5,15 @@ import reactHooksPlugin from 'eslint-plugin-react-hooks';
 
 import { reactSharedSetup } from '@/configs/react/shared.js';
 import { excludeLegacyRules } from '@/utils/exclude-legacy-rules.js';
+import { widenTypePlugins, widenTypeRules } from '@/utils/widen-types.js';
 
-export const reactRecommendedPlugins = {
-  react: reactPlugin as ESLint.Plugin,
-  'react-hooks': reactHooksPlugin as ESLint.Plugin,
+export const reactRecommendedPlugins = widenTypePlugins({
+  react: reactPlugin,
+  'react-hooks': reactHooksPlugin,
   'jsx-a11y': jsxA11yPlugin as ESLint.Plugin,
-} as const satisfies Record<string, ESLint.Plugin>;
+});
 
-export const reactRecommendedRules = {
+export const reactRecommendedRules = widenTypeRules({
   ...excludeLegacyRules({
     ...reactPlugin.configs.flat.recommended?.rules,
     ...reactPlugin.configs.flat['jsx-runtime']?.rules,
@@ -24,7 +25,7 @@ export const reactRecommendedRules = {
   'react/prop-types': 'off',
   'react/display-name': 'off',
   //#endregion React
-} as const satisfies Linter.RulesRecord as Linter.RulesRecord; // satisfies T as T は型安全かつ型制限するため
+});
 
 export const reactRecommendedConfigs = [
   {

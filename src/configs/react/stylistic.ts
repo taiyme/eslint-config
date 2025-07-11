@@ -1,13 +1,14 @@
-import type { ESLint, Linter } from 'eslint';
+import type { Linter } from 'eslint';
 import stylisticPlugin from '@stylistic/eslint-plugin';
 
 import { reactSharedSetup } from '@/configs/react/shared.js';
+import { widenTypePlugins, widenTypeRules } from '@/utils/widen-types.js';
 
-export const reactStylisticPlugins = {
-  '@stylistic': stylisticPlugin as ESLint.Plugin,
-} as const satisfies Record<string, ESLint.Plugin>;
+export const reactStylisticPlugins = widenTypePlugins({
+  '@stylistic': stylisticPlugin,
+});
 
-export const reactStylisticRules = {
+export const reactStylisticRules = widenTypeRules({
   '@stylistic/jsx-child-element-spacing': 'warn',
   '@stylistic/jsx-closing-bracket-location': ['warn', 'tag-aligned'],
   '@stylistic/jsx-closing-tag-location': 'warn',
@@ -59,7 +60,7 @@ export const reactStylisticRules = {
     prop: 'parens-new-line',
     propertyValue: 'parens-new-line',
   }],
-} as const satisfies Linter.RulesRecord as Linter.RulesRecord; // satisfies T as T は型安全かつ型制限するため
+});
 
 export const reactStylisticConfigs = [
   {

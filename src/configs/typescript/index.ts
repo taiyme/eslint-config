@@ -1,18 +1,19 @@
-import type { ESLint, Linter } from 'eslint';
+import type { Linter } from 'eslint';
 
 import { typescriptRecommendedPlugins, typescriptRecommendedRules } from '@/configs/typescript/recommended.js';
 import { typescriptSharedSetup } from '@/configs/typescript/shared.js';
 import { typescriptStylisticPlugins, typescriptStylisticRules } from '@/configs/typescript/stylistic.js';
+import { widenTypePlugins, widenTypeRules } from '@/utils/widen-types.js';
 
-export const typescriptPlugins = {
+export const typescriptPlugins = widenTypePlugins({
   ...typescriptRecommendedPlugins,
   ...typescriptStylisticPlugins,
-} as const satisfies Record<string, ESLint.Plugin>;
+});
 
-export const typescriptRules = {
+export const typescriptRules = widenTypeRules({
   ...typescriptRecommendedRules,
   ...typescriptStylisticRules,
-} as const satisfies Linter.RulesRecord as Linter.RulesRecord; // satisfies T as T は型安全かつ型制限するため
+});
 
 export const typescriptConfigs = [
   {
