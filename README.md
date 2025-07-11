@@ -1,7 +1,8 @@
 # @taiyme/eslint-config
 
-[![License](https://img.shields.io/npm/l/%40taiyme%2Feslint-config?style=flat)](./LICENSE)
 [![Version](https://img.shields.io/npm/v/%40taiyme%2Feslint-config?style=flat)](https://www.npmjs.com/package/@taiyme/eslint-config)
+[![License](https://img.shields.io/npm/l/%40taiyme%2Feslint-config?style=flat)](./LICENSE)
+[![Donate](https://img.shields.io/badge/donate-%3C3-f96854?style=flat)](https://taiy.me/to/donate)
 
 taiyのためのESLint共有設定です。
 
@@ -22,15 +23,15 @@ taiyのためのESLint共有設定です。
 pnpm add -D eslint jiti globals @typescript-eslint/parser eslint-config-flat-gitignore @taiyme/eslint-config
 ```
 
-## 使い方
+## セットアップ
 
 ### `eslint.config.ts` の設定
 
-`eslint.config.ts` を作成し、以下のように構成します。
+`eslint.config.ts` を作成し、次のように構成します。
 
-※ `@taiyme/eslint-config` は `files` を指定していないため、mapメソッドなどを利用して自分で指定してください。
+※ `@taiyme/eslint-config` は `files` を指定していないため、必ず自分で指定してください。
 
-```js
+```ts
 import type { Linter } from 'eslint';
 import taiymeConfig from '@taiyme/eslint-config';
 import tsEslintParser from '@typescript-eslint/parser';
@@ -56,7 +57,8 @@ export default [
   },
   ...[
     ...taiymeConfig.configs.typescript,
-    ...taiymeConfig.configs.react,
+    // Reactの場合は次の行を追加
+    // ...taiymeConfig.configs.react,
   ].map((config) => ({
     ...config,
     files,
@@ -65,9 +67,31 @@ export default [
 ] as const satisfies Linter.Config[];
 ```
 
-### `package.json` の `scripts` を更新
+### `tsconfig.json` の設定
 
-`package.json` に、ESLintを実行するスクリプトを追加します。
+`tsconfig.json` に、次のオプションを必要に応じて追記します。
+
+```jsonc
+{
+  "compilerOptions": {
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
+    "checkJs": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+  },
+}
+```
+
+### `package.json` の設定
+
+`package.json` に、次のスクリプトを必要に応じて追記します。
 
 ```jsonc
 {
@@ -78,9 +102,11 @@ export default [
 }
 ```
 
-### VS Codeで自動修正を有効にする
+### `.vscode/settings.json` の設定
 
-[ESLintの拡張機能](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) をインストールし、 `.vscode/settings.json` を作成して以下のように構成します。
+`.vscode/settings.json` に、次の設定を必要に応じて追記します。
+
+※ [ESLintの拡張機能](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) をインストールする必要があります。
 
 ```jsonc
 {
@@ -106,15 +132,6 @@ export default [
 ## 仕様
 
 ESLint Config Inspectorを参照してください: <https://eslint-config.taiy.me/>
-
-### 思想
-
-`@taiyme/eslint-config` は、次の思想を強く支持しているため、抗おうとしないでください。
-
-- Prettierを使わない
-- インデントは半角スペース2個
-- セミコロンは必須
-- 末尾カンマは必須
 
 ## ライセンス
 
