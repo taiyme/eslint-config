@@ -1,12 +1,12 @@
 import type { ESLint } from 'eslint';
 
-import { reactConfigs } from './configs/react/index.js';
-import { reactRecommendedConfigs } from './configs/react/recommended.js';
-import { reactStylisticConfigs } from './configs/react/stylistic.js';
-import { typescriptConfigs } from './configs/typescript/index.js';
-import { typescriptRecommendedConfigs } from './configs/typescript/recommended.js';
-import { typescriptStylisticConfigs } from './configs/typescript/stylistic.js';
-import { name, version } from './meta.js';
+import { reactConfigs } from '@/configs/react/index.js';
+import { reactRecommendedConfigs } from '@/configs/react/recommended.js';
+import { reactStylisticConfigs } from '@/configs/react/stylistic.js';
+import { typescriptConfigs } from '@/configs/typescript/index.js';
+import { typescriptRecommendedConfigs } from '@/configs/typescript/recommended.js';
+import { typescriptStylisticConfigs } from '@/configs/typescript/stylistic.js';
+import { name, version } from '@/meta.js';
 
 export default {
   meta: {

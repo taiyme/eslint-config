@@ -5,9 +5,9 @@ import perfectionistPlugin from 'eslint-plugin-perfectionist';
 import unusedImportsPlugin from 'eslint-plugin-unused-imports';
 import tsEslint from 'typescript-eslint';
 
-import { detectRuntime } from '../../utils/detect-runtime.js';
-import { excludeLegacyRules } from '../../utils/exclude-legacy-rules.js';
-import { typescriptSharedSetup } from './shared.js';
+import { typescriptSharedSetup } from '@/configs/typescript/shared.js';
+import { detectRuntime } from '@/utils/detect-runtime.js';
+import { excludeLegacyRules } from '@/utils/exclude-legacy-rules.js';
 
 export const typescriptRecommendedPlugins = {
   '@typescript-eslint': tsEslint.plugin as ESLint.Plugin,

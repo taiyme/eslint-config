@@ -1,7 +1,7 @@
 import type { ESLint, Linter } from 'eslint';
 import stylisticPlugin from '@stylistic/eslint-plugin';
 
-import { reactSharedSetup } from './shared.js';
+import { reactSharedSetup } from '@/configs/react/shared.js';
 
 export const reactStylisticPlugins = {
   '@stylistic': stylisticPlugin as ESLint.Plugin,

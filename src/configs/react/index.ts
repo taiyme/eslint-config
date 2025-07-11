@@ -1,8 +1,8 @@
 import type { ESLint, Linter } from 'eslint';
 
-import { reactRecommendedPlugins, reactRecommendedRules } from './recommended.js';
-import { reactSharedSetup } from './shared.js';
-import { reactStylisticPlugins, reactStylisticRules } from './stylistic.js';
+import { reactRecommendedPlugins, reactRecommendedRules } from '@/configs/react/recommended.js';
+import { reactSharedSetup } from '@/configs/react/shared.js';
+import { reactStylisticPlugins, reactStylisticRules } from '@/configs/react/stylistic.js';
 
 export const reactPlugins = {
   ...reactRecommendedPlugins,

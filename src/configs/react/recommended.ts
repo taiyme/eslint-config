@@ -3,8 +3,8 @@ import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 
-import { excludeLegacyRules } from '../../utils/exclude-legacy-rules.js';
-import { reactSharedSetup } from './shared.js';
+import { reactSharedSetup } from '@/configs/react/shared.js';
+import { excludeLegacyRules } from '@/utils/exclude-legacy-rules.js';
 
 export const reactRecommendedPlugins = {
   react: reactPlugin as ESLint.Plugin,
