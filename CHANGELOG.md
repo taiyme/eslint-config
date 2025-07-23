@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.1](https://github.com/taiyme/eslint-config/compare/v0.11.0...v0.11.1) (2025-07-23)
+
+
+### Bug Fixes
+
+* **deps:** update npm production dependencies (non-major) ([#88](https://github.com/taiyme/eslint-config/issues/88)) ([ae6db00](https://github.com/taiyme/eslint-config/commit/ae6db00162dba47917863d80128e26ed518181bd))
+
 ## [0.11.0](https://github.com/taiyme/eslint-config/compare/v0.10.5...v0.11.0) (2025-07-12)
 
 
