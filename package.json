@@ -31,7 +31,7 @@
     "prepare": "pnpm run build"
   },
   "dependencies": {
-    "@eslint/js": "9.31.0",
+    "@eslint/js": "9.32.0",
     "@stylistic/eslint-plugin": "5.2.2",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
