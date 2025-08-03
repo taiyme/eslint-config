@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.11.1](https://github.com/taiyme/eslint-config/compare/v0.11.0...v0.11.1) (2025-08-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @eslint/js to v9.32.0 ([#92](https://github.com/taiyme/eslint-config/issues/92)) ([1e418de](https://github.com/taiyme/eslint-config/commit/1e418deeefd9cc4fe0238a8844d4338247306902))
+* **deps:** update npm production dependencies (non-major) ([#88](https://github.com/taiyme/eslint-config/issues/88)) ([ae6db00](https://github.com/taiyme/eslint-config/commit/ae6db00162dba47917863d80128e26ed518181bd))
+
 ## [0.11.0](https://github.com/taiyme/eslint-config/compare/v0.10.5...v0.11.0) (2025-07-12)
 
 
