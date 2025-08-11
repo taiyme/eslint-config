@@ -31,15 +31,15 @@
     "prepare": "pnpm run build"
   },
   "dependencies": {
-    "@eslint/js": "9.32.0",
-    "@stylistic/eslint-plugin": "5.2.2",
+    "@eslint/js": "9.33.0",
+    "@stylistic/eslint-plugin": "5.2.3",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-perfectionist": "4.15.0",
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "5.2.0",
     "eslint-plugin-unused-imports": "4.1.4",
-    "typescript-eslint": "8.38.0"
+    "typescript-eslint": "8.39.0"
   },
   "devDependencies": {
     "@types/eslint-plugin-jsx-a11y": "6.10.0",
