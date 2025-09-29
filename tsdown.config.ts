@@ -8,4 +8,5 @@ export default defineConfig({
   dts: true,
   minify: true,
   exports: false,
+  tsconfig: 'tsconfig.src.json',
 });
