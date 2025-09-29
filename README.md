@@ -49,7 +49,7 @@ export default [
       },
       parser: tsEslintParser,
       parserOptions: {
-        project: './tsconfig.json',
+        projectService: true,
         tsconfigRootDir: import.meta.dirname,
       },
     },
@@ -96,8 +96,8 @@ export default [
 ```jsonc
 {
   "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
   }
 }
 ```

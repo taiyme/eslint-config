@@ -26,8 +26,8 @@
   "scripts": {
     "build": "tsdown",
     "clean": "node ./scripts/clean.js && pnpm store prune",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
     "prepare": "pnpm run build"
   },
   "dependencies": {
