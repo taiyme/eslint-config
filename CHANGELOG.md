@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.11.2](https://github.com/taiyme/eslint-config/compare/v0.11.1...v0.11.2) (2025-09-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency tsdown to v0.14.2 ([#109](https://github.com/taiyme/eslint-config/issues/109)) ([f0c097a](https://github.com/taiyme/eslint-config/commit/f0c097ad0ddf32d86085cea572da4d9fcafccdc7))
+* **deps:** update dependency typescript-eslint to v8.43.0 ([#120](https://github.com/taiyme/eslint-config/issues/120)) ([dfa49bd](https://github.com/taiyme/eslint-config/commit/dfa49bd571799ecd18f38a10f82aff4f4a662724))
+* **deps:** update npm production dependencies (non-major) ([#108](https://github.com/taiyme/eslint-config/issues/108)) ([1bbf5db](https://github.com/taiyme/eslint-config/commit/1bbf5db1c49af4e6075a14dd236559de89618500))
+
 ## [0.11.1](https://github.com/taiyme/eslint-config/compare/v0.11.0...v0.11.1) (2025-08-18)
 
 
