@@ -21,6 +21,15 @@ export default [
     },
     files,
   },
+  {
+    files: ['./src/const.ts'],
+    languageOptions: {
+      globals: {
+        __PACKAGE_NAME__: 'readonly',
+        __PACKAGE_VERSION__: 'readonly',
+      },
+    },
+  },
   ...taiymeConfig.configs.typescript.map((config) => ({
     ...config,
     files,
