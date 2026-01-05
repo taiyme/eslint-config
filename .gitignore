@@ -3,6 +3,7 @@ dist/
 
 # dev
 .eslint-config-inspector/
+_site/
 
 # deps
 node_modules/

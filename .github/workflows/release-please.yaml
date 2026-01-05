@@ -6,7 +6,10 @@ on:
       - main
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref_name }}
+  group: >-
+    ${{ github.workflow }}-
+    ${{ github.repository }}-
+    ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
 permissions: {}
@@ -23,6 +26,10 @@ jobs:
         with:
           app-id: ${{ secrets.RELEASE_APP_ID }}
           private-key: ${{ secrets.RELEASE_PRIVATE_KEY }}
+          permission-metadata: read
+          permission-contents: write
+          permission-pull-requests: write
+          permission-issues: write
 
       - name: Release Please
         uses: googleapis/release-please-action@16a9c90856f42705d54a6fda1823352bdc62cf38 # v4.4.0
