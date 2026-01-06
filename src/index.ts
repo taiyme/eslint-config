@@ -1,4 +1,4 @@
-import type { ESLint } from 'eslint';
+import type { Linter } from 'eslint';
 
 import { reactConfigs } from '@/configs/react/index.js';
 import { reactRecommendedConfigs } from '@/configs/react/recommended.js';
@@ -8,46 +8,58 @@ import { typescriptRecommendedConfigs } from '@/configs/typescript/recommended.j
 import { typescriptStylisticConfigs } from '@/configs/typescript/stylistic.js';
 import { packageName, packageVersion } from '@/const.js';
 
-export default {
+type TaiymeConfig = {
+  readonly meta: {
+    readonly name: string;
+    readonly version: string;
+  };
+  readonly configs: {
+    /**
+     * TypeScript用の基本ルールセット
+     * @see {@link https://eslint-config.taiy.me/}
+     */
+    readonly 'typescript/recommended': Linter.Config[];
+    /**
+     * TypeScript用のスタイル系ルールセット
+     * @see {@link https://eslint-config.taiy.me/}
+     */
+    readonly 'typescript/stylistic': Linter.Config[];
+    /**
+     * TypeScript用のルールセット (recommended + stylistic)
+     * @see {@link https://eslint-config.taiy.me/}
+     */
+    readonly typescript: Linter.Config[];
+    /**
+     * React用の基本ルールセット
+     * @see {@link https://eslint-config.taiy.me/}
+     */
+    readonly 'react/recommended': Linter.Config[];
+    /**
+     * React用のスタイル系ルールセット
+     * @see {@link https://eslint-config.taiy.me/}
+     */
+    readonly 'react/stylistic': Linter.Config[];
+    /**
+     * React用のルールセット (recommended + stylistic)
+     * @see {@link https://eslint-config.taiy.me/}
+     */
+    readonly react: Linter.Config[];
+  };
+};
+
+const taiymeConfig: TaiymeConfig = {
   meta: {
     name: packageName,
     version: packageVersion,
   },
   configs: {
-    /**
-     * TypeScript用の基本ルールセット
-     * @see {@link https://eslint-config.taiy.me/}
-     */
     'typescript/recommended': typescriptRecommendedConfigs,
-
-    /**
-     * TypeScript用のスタイル系ルールセット
-     * @see {@link https://eslint-config.taiy.me/}
-     */
     'typescript/stylistic': typescriptStylisticConfigs,
-
-    /**
-     * TypeScript用のルールセット (recommended + stylistic)
-     * @see {@link https://eslint-config.taiy.me/}
-     */
     typescript: typescriptConfigs,
-
-    /**
-     * React用の基本ルールセット
-     * @see {@link https://eslint-config.taiy.me/}
-     */
     'react/recommended': reactRecommendedConfigs,
-
-    /**
-     * React用のスタイル系ルールセット
-     * @see {@link https://eslint-config.taiy.me/}
-     */
     'react/stylistic': reactStylisticConfigs,
-
-    /**
-     * React用のルールセット (recommended + stylistic)
-     * @see {@link https://eslint-config.taiy.me/}
-     */
     react: reactConfigs,
   },
-} as const satisfies ESLint.Plugin;
+};
+
+export default taiymeConfig;
