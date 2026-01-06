@@ -87,7 +87,7 @@ export const typescriptRecommendedRules = widenTypeRules({
       'type-parent', 'type-sibling', 'type-index',
       'parent', 'sibling', 'index',
       { newlinesBetween: 1 },
-      'object',
+      'type-ts-equals-import', 'ts-equals-import',
       { newlinesBetween: 1 },
       'unknown',
     ],
