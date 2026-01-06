@@ -3,6 +3,7 @@ import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 
 import { reactSharedSetup } from '@/configs/react/shared.js';
+import { packageName } from '@/const.js';
 import { defineConfigList, definePluginMap, defineRuleMap } from '@/utils/eslint.js';
 import { excludeLegacyRules } from '@/utils/exclude-legacy-rules.js';
 
@@ -29,14 +30,14 @@ export const reactRecommendedRules = defineRuleMap({
 export const reactRecommendedConfigs = defineConfigList([
   {
     ...reactSharedSetup,
-    name: 'taiyme/react/recommended/setup',
+    name: `${packageName}/react/recommended/setup`,
   },
   {
-    name: 'taiyme/react/recommended/plugins',
+    name: `${packageName}/react/recommended/plugins`,
     plugins: reactRecommendedPlugins,
   },
   {
-    name: 'taiyme/react/recommended/rules',
+    name: `${packageName}/react/recommended/rules`,
     rules: reactRecommendedRules,
   },
 ]);

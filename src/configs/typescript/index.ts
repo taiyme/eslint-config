@@ -1,6 +1,7 @@
 import { typescriptRecommendedPlugins, typescriptRecommendedRules } from '@/configs/typescript/recommended.js';
 import { typescriptSharedSetup } from '@/configs/typescript/shared.js';
 import { typescriptStylisticPlugins, typescriptStylisticRules } from '@/configs/typescript/stylistic.js';
+import { packageName } from '@/const.js';
 import { defineConfigList, definePluginMap, defineRuleMap } from '@/utils/eslint.js';
 
 export const typescriptPlugins = definePluginMap({
@@ -16,14 +17,14 @@ export const typescriptRules = defineRuleMap({
 export const typescriptConfigs = defineConfigList([
   {
     ...typescriptSharedSetup,
-    name: 'taiyme/typescript/setup',
+    name: `${packageName}/typescript/setup`,
   },
   {
-    name: 'taiyme/typescript/plugins',
+    name: `${packageName}/typescript/plugins`,
     plugins: typescriptPlugins,
   },
   {
-    name: 'taiyme/typescript/rules',
+    name: `${packageName}/typescript/rules`,
     rules: typescriptRules,
   },
 ]);

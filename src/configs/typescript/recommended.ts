@@ -5,6 +5,7 @@ import unusedImportsPlugin from 'eslint-plugin-unused-imports';
 import tsEslint from 'typescript-eslint';
 
 import { typescriptSharedSetup } from '@/configs/typescript/shared.js';
+import { packageName } from '@/const.js';
 import { detectRuntime } from '@/utils/detect-runtime.js';
 import { defineConfigList, definePluginMap, defineRuleMap } from '@/utils/eslint.js';
 import { excludeLegacyRules } from '@/utils/exclude-legacy-rules.js';
@@ -110,14 +111,14 @@ export const typescriptRecommendedRules = defineRuleMap({
 export const typescriptRecommendedConfigs = defineConfigList([
   {
     ...typescriptSharedSetup,
-    name: 'taiyme/typescript/recommended/setup',
+    name: `${packageName}/typescript/recommended/setup`,
   },
   {
-    name: 'taiyme/typescript/recommended/plugins',
+    name: `${packageName}/typescript/recommended/plugins`,
     plugins: typescriptRecommendedPlugins,
   },
   {
-    name: 'taiyme/typescript/recommended/rules',
+    name: `${packageName}/typescript/recommended/rules`,
     rules: typescriptRecommendedRules,
   },
 ]);

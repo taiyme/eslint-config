@@ -1,6 +1,7 @@
 import { reactRecommendedPlugins, reactRecommendedRules } from '@/configs/react/recommended.js';
 import { reactSharedSetup } from '@/configs/react/shared.js';
 import { reactStylisticPlugins, reactStylisticRules } from '@/configs/react/stylistic.js';
+import { packageName } from '@/const.js';
 import { defineConfigList, definePluginMap, defineRuleMap } from '@/utils/eslint.js';
 
 export const reactPlugins = definePluginMap({
@@ -16,14 +17,14 @@ export const reactRules = defineRuleMap({
 export const reactConfigs = defineConfigList([
   {
     ...reactSharedSetup,
-    name: 'taiyme/react/setup',
+    name: `${packageName}/react/setup`,
   },
   {
-    name: 'taiyme/react/plugins',
+    name: `${packageName}/react/plugins`,
     plugins: reactPlugins,
   },
   {
-    name: 'taiyme/react/rules',
+    name: `${packageName}/react/rules`,
     rules: reactRules,
   },
 ]);

@@ -1,6 +1,7 @@
 import stylisticPlugin from '@stylistic/eslint-plugin';
 
 import { reactSharedSetup } from '@/configs/react/shared.js';
+import { packageName } from '@/const.js';
 import { defineConfigList, definePluginMap, defineRuleMap } from '@/utils/eslint.js';
 
 export const reactStylisticPlugins = definePluginMap({
@@ -63,14 +64,14 @@ export const reactStylisticRules = defineRuleMap({
 export const reactStylisticConfigs = defineConfigList([
   {
     ...reactSharedSetup,
-    name: 'taiyme/react/stylistic/setup',
+    name: `${packageName}/react/stylistic/setup`,
   },
   {
-    name: 'taiyme/react/stylistic/plugins',
+    name: `${packageName}/react/stylistic/plugins`,
     plugins: reactStylisticPlugins,
   },
   {
-    name: 'taiyme/react/stylistic/rules',
+    name: `${packageName}/react/stylistic/rules`,
     rules: reactStylisticRules,
   },
 ]);
