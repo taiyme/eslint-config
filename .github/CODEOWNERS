@@ -1,0 +1,4 @@
+/.github/CODEOWNERS @taiyme
+/.github/workflows/ @taiyme
+/scripts/ @taiyme
+/src/ @taiyme
