@@ -42,7 +42,6 @@ export const reactStylisticRules = widenTypeRules({
     },
   }],
   '@stylistic/jsx-pascal-case': 'warn',
-  '@stylistic/jsx-props-no-multi-spaces': 'warn',
   '@stylistic/jsx-self-closing-comp': 'warn',
   '@stylistic/jsx-tag-spacing': ['warn', {
     closingSlash: 'never',

@@ -166,12 +166,6 @@ export const typescriptStylisticRules = widenTypeRules({
   '@stylistic/type-annotation-spacing': ['warn', {
     before: false,
     after: true,
-    overrides: {
-      arrow: {
-        before: true,
-        after: true,
-      },
-    },
   }],
   '@stylistic/type-generic-spacing': 'off', // @stylistic/keyword-spacing と衝突する
   '@stylistic/type-named-tuple-spacing': 'warn',
