@@ -2,6 +2,10 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "paths": {
+      "@/codegen/eslint-typegen.js": [
+        "./src/codegen/eslint-typegen.ts",
+        "./src/codegen/eslint-typegen.stub.ts",
+      ],
       "@/*": [
         "./src/*",
       ],

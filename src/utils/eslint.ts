@@ -1,15 +1,17 @@
 import type { ESLint, Linter } from 'eslint';
 import type { SetRequired } from 'type-fest';
 
+import type { RuleOptions } from '@/codegen/eslint-typegen.js';
+
 type PluginMap = Record<string, ESLint.Plugin>;
 
 export function definePluginMap<T extends PluginMap>(plugins: T) {
-  return plugins as { [K in keyof T]: ESLint.Plugin; };
+  return plugins as PluginMap;
 }
 
 type RuleMap = Record<string, Linter.RuleEntry>;
 
-export function defineRuleMap<T extends RuleMap>(rules: T) {
+export function defineRuleMap<T extends RuleMap & RuleOptions>(rules: T) {
   return rules as RuleMap;
 }
 

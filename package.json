@@ -24,7 +24,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsdown",
+    "build": "tsdown && node ./scripts/typegen.ts",
     "clean": "node ./scripts/clean.ts && pnpm store prune",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
@@ -48,6 +48,7 @@
     "better-typescript-lib": "2.12.0",
     "eslint": "9.39.2",
     "eslint-config-flat-gitignore": "2.1.0",
+    "eslint-typegen": "2.3.0",
     "globals": "16.4.0",
     "jiti": "2.6.1",
     "tsdown": "0.18.4",
