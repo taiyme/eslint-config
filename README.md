@@ -32,17 +32,18 @@ pnpm add -D eslint jiti globals @typescript-eslint/parser eslint-config-flat-git
 ※ `@taiyme/eslint-config` は `files` を指定していないため、必ず自分で指定してください。
 
 ```ts
-import type { Linter } from 'eslint';
 import taiymeConfig from '@taiyme/eslint-config';
 import tsEslintParser from '@typescript-eslint/parser';
 import gitignore from 'eslint-config-flat-gitignore';
+import { defineConfig } from 'eslint/config';
 import globals from 'globals';
 
 const files = ['**/*.{js,jsx,ts,tsx}'];
 
-export default [
+export default defineConfig([
   gitignore(),
   {
+    files,
     languageOptions: {
       globals: {
         ...globals.node,
@@ -53,18 +54,17 @@ export default [
         tsconfigRootDir: import.meta.dirname,
       },
     },
-    files,
   },
-  ...[
-    ...taiymeConfig.configs.typescript,
-    // Reactの場合は次の行を追加
-    // ...taiymeConfig.configs.react,
-  ].map((config) => ({
-    ...config,
+  {
     files,
-  })),
+    extends: [
+      taiymeConfig.configs.typescript, // TypeScript 推奨ルール
+      taiymeConfig.configs.react, // React 推奨ルール
+      taiymeConfig.configs.stylistic, // TypeScript/JSX 文体ルール
+    ],
+  },
   // ...
-] as const satisfies Linter.Config[];
+]);
 ```
 
 ### `tsconfig.json` の設定

@@ -1,14 +1,15 @@
-import type { Linter } from 'eslint';
 import taiymeConfig from '@taiyme/eslint-config';
 import tsEslintParser from '@typescript-eslint/parser';
 import gitignore from 'eslint-config-flat-gitignore';
+import { defineConfig } from 'eslint/config';
 import globals from 'globals';
 
 const files = ['**/*.{js,ts}'];
 
-export default [
+export default defineConfig([
   gitignore(),
   {
+    files,
     languageOptions: {
       globals: {
         ...globals.node,
@@ -19,7 +20,13 @@ export default [
         tsconfigRootDir: import.meta.dirname,
       },
     },
+  },
+  {
     files,
+    extends: [
+      taiymeConfig.configs.typescript,
+      taiymeConfig.configs.stylistic,
+    ],
   },
   {
     files: ['./src/const.ts'],
@@ -30,8 +37,4 @@ export default [
       },
     },
   },
-  ...taiymeConfig.configs.typescript.map((config) => ({
-    ...config,
-    files,
-  })),
-] as const satisfies Linter.Config[];
+]);
