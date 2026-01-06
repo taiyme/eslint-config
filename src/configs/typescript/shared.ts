@@ -5,4 +5,4 @@ export const typescriptSharedSetup = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-} as const satisfies Linter.Config;
+} satisfies Linter.Config;

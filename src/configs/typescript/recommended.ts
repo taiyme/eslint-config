@@ -1,4 +1,3 @@
-import type { ESLint, Linter } from 'eslint';
 import eslintJs from '@eslint/js';
 import importPlugin from 'eslint-plugin-import';
 import perfectionistPlugin from 'eslint-plugin-perfectionist';
@@ -7,17 +6,17 @@ import tsEslint from 'typescript-eslint';
 
 import { typescriptSharedSetup } from '@/configs/typescript/shared.js';
 import { detectRuntime } from '@/utils/detect-runtime.js';
+import { defineConfigList, definePluginMap, defineRuleMap } from '@/utils/eslint.js';
 import { excludeLegacyRules } from '@/utils/exclude-legacy-rules.js';
-import { widenTypePlugins, widenTypeRules } from '@/utils/widen-types.js';
 
-export const typescriptRecommendedPlugins = widenTypePlugins({
-  '@typescript-eslint': tsEslint.plugin as ESLint.Plugin,
+export const typescriptRecommendedPlugins = definePluginMap({
+  '@typescript-eslint': tsEslint.plugin,
   import: importPlugin,
   perfectionist: perfectionistPlugin,
   'unused-imports': unusedImportsPlugin,
 });
 
-export const typescriptRecommendedRules = widenTypeRules({
+export const typescriptRecommendedRules = defineRuleMap({
   ...excludeLegacyRules({
     ...eslintJs.configs.recommended.rules,
     ...(Object.assign({}, ...tsEslint.configs.recommended.map((config) => config.rules))),
@@ -108,7 +107,7 @@ export const typescriptRecommendedRules = widenTypeRules({
   //#endregion unused-imports
 });
 
-export const typescriptRecommendedConfigs = [
+export const typescriptRecommendedConfigs = defineConfigList([
   {
     ...typescriptSharedSetup,
     name: 'taiyme/typescript/recommended/setup',
@@ -121,4 +120,4 @@ export const typescriptRecommendedConfigs = [
     name: 'taiyme/typescript/recommended/rules',
     rules: typescriptRecommendedRules,
   },
-] as const satisfies Linter.Config[];
+]);

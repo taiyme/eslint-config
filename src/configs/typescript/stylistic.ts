@@ -1,14 +1,13 @@
-import type { Linter } from 'eslint';
 import stylisticPlugin from '@stylistic/eslint-plugin';
 
 import { typescriptSharedSetup } from '@/configs/typescript/shared.js';
-import { widenTypePlugins, widenTypeRules } from '@/utils/widen-types.js';
+import { defineConfigList, definePluginMap, defineRuleMap } from '@/utils/eslint.js';
 
-export const typescriptStylisticPlugins = widenTypePlugins({
+export const typescriptStylisticPlugins = definePluginMap({
   '@stylistic': stylisticPlugin,
 });
 
-export const typescriptStylisticRules = widenTypeRules({
+export const typescriptStylisticRules = defineRuleMap({
   '@stylistic/array-bracket-newline': ['warn', 'consistent'],
   '@stylistic/array-bracket-spacing': ['warn', 'never'],
   '@stylistic/array-element-newline': 'off',
@@ -179,7 +178,7 @@ export const typescriptStylisticRules = widenTypeRules({
   }],
 });
 
-export const typescriptStylisticConfigs = [
+export const typescriptStylisticConfigs = defineConfigList([
   {
     ...typescriptSharedSetup,
     name: 'taiyme/typescript/stylistic/setup',
@@ -192,4 +191,4 @@ export const typescriptStylisticConfigs = [
     name: 'taiyme/typescript/stylistic/rules',
     rules: typescriptStylisticRules,
   },
-] as const satisfies Linter.Config[];
+]);

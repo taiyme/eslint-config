@@ -1,14 +1,13 @@
-import type { Linter } from 'eslint';
 import stylisticPlugin from '@stylistic/eslint-plugin';
 
 import { reactSharedSetup } from '@/configs/react/shared.js';
-import { widenTypePlugins, widenTypeRules } from '@/utils/widen-types.js';
+import { defineConfigList, definePluginMap, defineRuleMap } from '@/utils/eslint.js';
 
-export const reactStylisticPlugins = widenTypePlugins({
+export const reactStylisticPlugins = definePluginMap({
   '@stylistic': stylisticPlugin,
 });
 
-export const reactStylisticRules = widenTypeRules({
+export const reactStylisticRules = defineRuleMap({
   '@stylistic/jsx-child-element-spacing': 'warn',
   '@stylistic/jsx-closing-bracket-location': ['warn', 'tag-aligned'],
   '@stylistic/jsx-closing-tag-location': 'warn',
@@ -61,7 +60,7 @@ export const reactStylisticRules = widenTypeRules({
   }],
 });
 
-export const reactStylisticConfigs = [
+export const reactStylisticConfigs = defineConfigList([
   {
     ...reactSharedSetup,
     name: 'taiyme/react/stylistic/setup',
@@ -74,4 +73,4 @@ export const reactStylisticConfigs = [
     name: 'taiyme/react/stylistic/rules',
     rules: reactStylisticRules,
   },
-] as const satisfies Linter.Config[];
+]);

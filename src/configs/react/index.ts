@@ -1,21 +1,19 @@
-import type { Linter } from 'eslint';
-
 import { reactRecommendedPlugins, reactRecommendedRules } from '@/configs/react/recommended.js';
 import { reactSharedSetup } from '@/configs/react/shared.js';
 import { reactStylisticPlugins, reactStylisticRules } from '@/configs/react/stylistic.js';
-import { widenTypePlugins, widenTypeRules } from '@/utils/widen-types.js';
+import { defineConfigList, definePluginMap, defineRuleMap } from '@/utils/eslint.js';
 
-export const reactPlugins = widenTypePlugins({
+export const reactPlugins = definePluginMap({
   ...reactRecommendedPlugins,
   ...reactStylisticPlugins,
 });
 
-export const reactRules = widenTypeRules({
+export const reactRules = defineRuleMap({
   ...reactRecommendedRules,
   ...reactStylisticRules,
 });
 
-export const reactConfigs = [
+export const reactConfigs = defineConfigList([
   {
     ...reactSharedSetup,
     name: 'taiyme/react/setup',
@@ -28,4 +26,4 @@ export const reactConfigs = [
     name: 'taiyme/react/rules',
     rules: reactRules,
   },
-] as const satisfies Linter.Config[];
+]);

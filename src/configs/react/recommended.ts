@@ -1,19 +1,18 @@
-import type { ESLint, Linter } from 'eslint';
 import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
 
 import { reactSharedSetup } from '@/configs/react/shared.js';
+import { defineConfigList, definePluginMap, defineRuleMap } from '@/utils/eslint.js';
 import { excludeLegacyRules } from '@/utils/exclude-legacy-rules.js';
-import { widenTypePlugins, widenTypeRules } from '@/utils/widen-types.js';
 
-export const reactRecommendedPlugins = widenTypePlugins({
+export const reactRecommendedPlugins = definePluginMap({
   react: reactPlugin,
   'react-hooks': reactHooksPlugin,
-  'jsx-a11y': jsxA11yPlugin as ESLint.Plugin,
+  'jsx-a11y': jsxA11yPlugin,
 });
 
-export const reactRecommendedRules = widenTypeRules({
+export const reactRecommendedRules = defineRuleMap({
   ...excludeLegacyRules({
     ...reactPlugin.configs.flat.recommended?.rules,
     ...reactPlugin.configs.flat['jsx-runtime']?.rules,
@@ -27,7 +26,7 @@ export const reactRecommendedRules = widenTypeRules({
   //#endregion React
 });
 
-export const reactRecommendedConfigs = [
+export const reactRecommendedConfigs = defineConfigList([
   {
     ...reactSharedSetup,
     name: 'taiyme/react/recommended/setup',
@@ -40,4 +39,4 @@ export const reactRecommendedConfigs = [
     name: 'taiyme/react/recommended/rules',
     rules: reactRecommendedRules,
   },
-] as const satisfies Linter.Config[];
+]);

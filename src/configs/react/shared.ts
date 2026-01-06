@@ -15,4 +15,4 @@ export const reactSharedSetup = {
       version: 'detect',
     },
   },
-} as const satisfies Linter.Config;
+} satisfies Linter.Config;
