@@ -6,7 +6,7 @@ async function main() {
   const cwd = fileURLToPath(new URL('..', import.meta.url));
 
   await fs.rm(resolve(cwd, '_site'), { recursive: true, force: true });
-  await fs.rm(resolve(cwd, 'src', 'codegen'), { recursive: true, force: true });
+  await fs.rm(resolve(cwd, 'codegen'), { recursive: true, force: true });
   await fs.rm(resolve(cwd, 'dist'), { recursive: true, force: true });
   await fs.rm(resolve(cwd, 'node_modules'), { recursive: true, force: true });
 }

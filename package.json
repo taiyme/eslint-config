@@ -24,7 +24,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsdown && node ./scripts/typegen.ts",
+    "build": "node ./scripts/typegen.ts && tsdown",
     "clean": "node ./scripts/clean.ts && pnpm store prune",
     "lint": "eslint",
     "lint:fix": "eslint --fix",

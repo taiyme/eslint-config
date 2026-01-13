@@ -4,9 +4,7 @@ dist/
 # dev
 .eslint-config-inspector/
 _site/
-src/codegen/**
-!src/codegen/
-!src/codegen/**/*.stub.ts
+codegen/
 
 # deps
 node_modules/
