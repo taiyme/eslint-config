@@ -229,6 +229,9 @@ export function stylistic() {
         '@stylistic/type-annotation-spacing': ['warn', {
           before: false,
           after: true,
+          overrides: {
+            arrow: 'ignore',
+          },
         }],
         '@stylistic/type-generic-spacing': 'off', // @stylistic/keyword-spacing と衝突する
         '@stylistic/type-named-tuple-spacing': 'warn',
