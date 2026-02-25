@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/taiyme/eslint-config/compare/v1.0.0...v1.0.1) (2026-02-25)
+
+
+### Bug Fixes
+
+* resolve conflict between type-annotation-spacing and arrow-spacing ([#169](https://github.com/taiyme/eslint-config/issues/169)) ([b9ab8ff](https://github.com/taiyme/eslint-config/commit/b9ab8ff650d87626d13bd53e46fdd4875656d2cc))
+
 ## [1.0.0](https://github.com/taiyme/eslint-config/compare/v0.11.1...v1.0.0) (2026-01-06)
 
 
