@@ -1,6 +1,5 @@
 import fs from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
 
 import type { ESLint } from 'eslint';
 import type { Promisable } from 'type-fest';
@@ -30,7 +29,7 @@ async function getPlugins() {
 }
 
 async function main() {
-  const cwd = fileURLToPath(new URL('..', import.meta.url));
+  const cwd = resolve(import.meta.dirname, '..');
 
   const { plugins } = await getPlugins();
 
