@@ -1,4 +1,5 @@
-/.github/CODEOWNERS @taiyme
-/.github/workflows/ @taiyme
-/scripts/ @taiyme
-/src/ @taiyme
+* @taiyme
+
+/package.json        # for Renovate automerge
+/pnpm-lock.yaml      # for Renovate automerge
+/pnpm-workspace.yaml # for Renovate automerge
