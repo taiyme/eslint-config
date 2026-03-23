@@ -55,8 +55,8 @@ jobs:
     needs:
       - build
     permissions:
-      pages: write
-      id-token: write
+      pages: write    # Required for 'Deploy to GitHub Pages' step.
+      id-token: write # Required for 'Deploy to GitHub Pages' step.
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
