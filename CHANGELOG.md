@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.2](https://github.com/taiyme/eslint-config/compare/v1.0.1...v1.0.2) (2026-04-05)
+
+
+### Bug Fixes
+
+* **deps:** update npm production dependencies (non-major) ([#174](https://github.com/taiyme/eslint-config/issues/174)) ([5b3be05](https://github.com/taiyme/eslint-config/commit/5b3be0506bd4353d0fa5a1fa94e4a27618ccfc8f))
+* **deps:** update pnpm to v10.28.2 [security] ([#171](https://github.com/taiyme/eslint-config/issues/171)) ([26de964](https://github.com/taiyme/eslint-config/commit/26de9641917e02c7c1c575e01cdaa9aca2d1ba0e))
+
 ## [1.0.1](https://github.com/taiyme/eslint-config/compare/v1.0.0...v1.0.1) (2026-02-25)
 
 
