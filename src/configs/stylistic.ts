@@ -9,18 +9,9 @@ export function stylistic() {
       plugins: {
         '@stylistic': stylisticPlugin,
       },
-      languageOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-        parserOptions: {
-          ecmaFeatures: {
-            jsx: true,
-          },
-        },
-      },
     },
     {
-      name: 'taiyme/stylistic/rules',
+      name: 'taiyme/stylistic/customize-rules',
       rules: {
         '@stylistic/array-bracket-newline': ['warn', 'consistent'],
         '@stylistic/array-bracket-spacing': ['warn', 'never'],

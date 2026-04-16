@@ -13,17 +13,16 @@ async function interopDefault<T>(mod: Promisable<T>): Promise<T extends { defaul
 }
 
 async function getPlugins() {
-  const plugins = {
+  const plugins: Record<string, ESLint.Plugin> = {
     '': { rules: Object.fromEntries(builtinRules.entries()) },
     '@typescript-eslint': (await interopDefault(import('typescript-eslint'))).plugin,
-    import: (await interopDefault(import('eslint-plugin-import'))),
+    'import-x': (await interopDefault(import('eslint-plugin-import-x'))),
+    n: (await interopDefault(import('eslint-plugin-n'))),
     perfectionist: (await interopDefault(import('eslint-plugin-perfectionist'))),
     'unused-imports': (await interopDefault(import('eslint-plugin-unused-imports'))),
-    react: (await interopDefault(import('eslint-plugin-react'))),
-    'react-hooks': (await interopDefault(import('eslint-plugin-react-hooks'))) as ESLint.Plugin,
-    'jsx-a11y': (await interopDefault(import('eslint-plugin-jsx-a11y'))),
     '@stylistic': (await interopDefault(import('@stylistic/eslint-plugin'))),
-  } satisfies Record<string, ESLint.Plugin>;
+    ...(await interopDefault(import('@eslint-react/eslint-plugin'))).configs.all.plugins,
+  };
 
   return { plugins } as const;
 }

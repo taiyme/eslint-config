@@ -1,3 +1,11 @@
+allowBuilds:
+  unrs-resolver: true
+engineStrict: true
 minimumReleaseAge: 20160 # 14 days
 minimumReleaseAgeExclude:
   - '@taiyme/*'
+publicHoistPattern:
+  - '@typescript/*'
+saveExact: true
+shellEmulator: true
+trustPolicy: no-downgrade
