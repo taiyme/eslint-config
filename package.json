@@ -31,22 +31,20 @@
     "prepare": "pnpm run build"
   },
   "dependencies": {
-    "@eslint/js": "9.39.4",
+    "@eslint-react/eslint-plugin": "4.2.1",
+    "@eslint/js": "10.0.1",
     "@stylistic/eslint-plugin": "5.10.0",
-    "eslint-plugin-import": "2.32.0",
-    "eslint-plugin-jsx-a11y": "6.10.2",
-    "eslint-plugin-perfectionist": "5.7.0",
-    "eslint-plugin-react": "7.37.5",
-    "eslint-plugin-react-hooks": "7.0.1",
+    "eslint-plugin-import-x": "4.16.2",
+    "eslint-plugin-n": "17.24.0",
+    "eslint-plugin-perfectionist": "5.8.0",
     "eslint-plugin-unused-imports": "4.4.1",
-    "typescript-eslint": "8.57.2"
+    "typescript-eslint": "8.58.0"
   },
   "devDependencies": {
-    "@types/eslint-plugin-jsx-a11y": "6.10.1",
     "@types/node": "24.12.0",
-    "@typescript-eslint/parser": "8.57.2",
+    "@typescript-eslint/parser": "8.58.0",
     "better-typescript-lib": "2.12.0",
-    "eslint": "9.39.4",
+    "eslint": "10.1.0",
     "eslint-config-flat-gitignore": "2.3.0",
     "eslint-typegen": "2.3.1",
     "globals": "17.4.0",
@@ -56,7 +54,7 @@
     "typescript": "5.9.3"
   },
   "peerDependencies": {
-    "eslint": ">=9.18.0",
+    "eslint": ">=10.0.0",
     "typescript": ">=5.5.0"
   },
   "peerDependenciesMeta": {
@@ -69,7 +67,7 @@
   },
   "packageManager": "pnpm@10.33.0",
   "engines": {
-    "node": ">=22.0.0",
+    "node": ">=22.16.0",
     "pnpm": ">=10.28.2"
   },
   "publishConfig": {

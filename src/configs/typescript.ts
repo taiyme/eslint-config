@@ -1,12 +1,12 @@
 import eslintJs from '@eslint/js';
-import importPlugin from 'eslint-plugin-import';
+import { importX as importXPlugin } from 'eslint-plugin-import-x';
+import nPlugin from 'eslint-plugin-n';
 import perfectionistPlugin from 'eslint-plugin-perfectionist';
 import unusedImportsPlugin from 'eslint-plugin-unused-imports';
 import tsEslint from 'typescript-eslint';
 
 import { defineConfig } from '@/utils/define-config.js';
 import { detectRuntime } from '@/utils/detect-runtime.js';
-import { excludeLegacyRules } from '@/utils/exclude-legacy-rules.js';
 
 export function typescript() {
   return defineConfig([
@@ -14,24 +14,24 @@ export function typescript() {
       name: 'taiyme/typescript/setup',
       plugins: {
         '@typescript-eslint': tsEslint.plugin,
-        import: importPlugin,
+        'import-x': importXPlugin,
+        n: nPlugin,
         perfectionist: perfectionistPlugin,
         'unused-imports': unusedImportsPlugin,
       },
-      languageOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
+    },
+    {
+      name: 'taiyme/typescript/plugin-recommended-rules',
+      rules: {
+        ...eslintJs.configs.recommended.rules,
+        ...(Object.assign({}, ...tsEslint.configs.recommended.map((config) => config.rules))),
+        ...nPlugin.configs['flat/recommended'].rules,
       },
     },
     {
-      name: 'taiyme/typescript/rules',
+      name: 'taiyme/typescript/customize-rules',
       rules: {
-        ...excludeLegacyRules({
-          ...eslintJs.configs.recommended.rules,
-          ...(Object.assign({}, ...tsEslint.configs.recommended.map((config) => config.rules))),
-        }),
-
-        //#region JavaScript
+        // #region builtin
         eqeqeq: ['error', 'always', {
           null: 'ignore',
         }],
@@ -43,9 +43,9 @@ export function typescript() {
         'one-var': ['warn', 'never'],
         'prefer-template': 'warn',
         'sort-imports': 'off',
-        //#endregion JavaScript
+        // #endregion builtin
 
-        //#region TypeScript
+        // #region @typescript-eslint
         '@typescript-eslint/consistent-type-imports': ['error', {
           prefer: 'type-imports',
           fixStyle: 'separate-type-imports',
@@ -71,17 +71,22 @@ export function typescript() {
           ignoreTypeReferences: true,
         }],
         '@typescript-eslint/prefer-optional-chain': 'warn',
-        //#endregion TypeScript
+        // #endregion @typescript-eslint
 
-        //#region import
-        'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
-        'import/enforce-node-protocol-usage': ['warn', 'always'],
-        'import/no-duplicates': ['warn', {
+        // #region import-x
+        'import-x/consistent-type-specifier-style': ['error', 'prefer-top-level'],
+        'import-x/no-duplicates': ['warn', {
           'prefer-inline': false,
         }],
-        //#endregion import
+        // #endregion import-x
 
-        //#region perfectionist
+        // #region n
+        'n/prefer-node-protocol': 'warn',
+        'n/no-missing-import': 'off', // tscで対応
+        'n/no-missing-require': 'off', // tscで対応
+        // #endregion n
+
+        // #region perfectionist
         'perfectionist/sort-exports': 'warn',
         'perfectionist/sort-imports': ['warn', {
           newlinesBetween: 0,
@@ -103,9 +108,9 @@ export function typescript() {
         }],
         'perfectionist/sort-named-exports': 'warn',
         'perfectionist/sort-named-imports': 'warn',
-        //#endregion perfectionist
+        // #endregion perfectionist
 
-        //#region unused-imports
+        // #region unused-imports
         'unused-imports/no-unused-imports': 'warn',
         'unused-imports/no-unused-vars': ['warn', {
           vars: 'all',
@@ -113,7 +118,7 @@ export function typescript() {
           args: 'after-used',
           argsIgnorePattern: '^_',
         }],
-        //#endregion unused-imports
+        // #endregion unused-imports
       },
     },
   ]);
