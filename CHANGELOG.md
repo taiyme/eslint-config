@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.0.0](https://github.com/taiyme/eslint-config/compare/v1.0.1...v2.0.0) (2026-05-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* eslint v10, migrate plugins ([#190](https://github.com/taiyme/eslint-config/issues/190))
+
+### Features
+
+* eslint v10, migrate plugins ([#190](https://github.com/taiyme/eslint-config/issues/190)) ([ac5bc83](https://github.com/taiyme/eslint-config/commit/ac5bc83902725cf1364184631a00748c3bdacf70))
+
+
+### Bug Fixes
+
+* **deps:** update npm dependencies ([#189](https://github.com/taiyme/eslint-config/issues/189)) ([2d3398f](https://github.com/taiyme/eslint-config/commit/2d3398f2cfbb7e98ae3b05e82809c5a394c49280))
+* **deps:** update npm production dependencies (non-major) ([#174](https://github.com/taiyme/eslint-config/issues/174)) ([5b3be05](https://github.com/taiyme/eslint-config/commit/5b3be0506bd4353d0fa5a1fa94e4a27618ccfc8f))
+* **deps:** update pnpm to v10.28.2 [security] ([#171](https://github.com/taiyme/eslint-config/issues/171)) ([26de964](https://github.com/taiyme/eslint-config/commit/26de9641917e02c7c1c575e01cdaa9aca2d1ba0e))
+
 ## [1.0.1](https://github.com/taiyme/eslint-config/compare/v1.0.0...v1.0.1) (2026-02-25)
 
 
