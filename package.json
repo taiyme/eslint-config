@@ -31,7 +31,7 @@
     "prepare": "pnpm run build"
   },
   "dependencies": {
-    "@eslint-react/eslint-plugin": "4.2.1",
+    "@eslint-react/eslint-plugin": "5.6.4",
     "@eslint/js": "10.0.1",
     "@stylistic/eslint-plugin": "5.10.0",
     "eslint-plugin-import-x": "4.16.2",
