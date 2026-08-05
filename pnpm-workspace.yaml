@@ -1,7 +1,7 @@
 allowBuilds:
   unrs-resolver: true
 engineStrict: true
-minimumReleaseAge: 20160 # 14 days
+minimumReleaseAge: 10080 # 7 days
 minimumReleaseAgeExclude:
   - '@taiyme/*'
 publicHoistPattern:
