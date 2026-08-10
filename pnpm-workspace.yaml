@@ -4,6 +4,8 @@ engineStrict: true
 minimumReleaseAge: 10080 # 7 days
 minimumReleaseAgeExclude:
   - '@taiyme/*'
+  # Renovate security update: pnpm@11.5.3
+  - pnpm@11.5.3
 publicHoistPattern:
   - '@typescript/*'
 saveExact: true
