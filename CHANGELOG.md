@@ -1,5 +1,30 @@
 # Changelog
 
+## [2.0.0](https://github.com/taiyme/eslint-config/compare/v1.0.1...v2.0.0) (2026-08-12)
+
+
+### ⚠ BREAKING CHANGES
+
+* eslint v10, migrate plugins ([#190](https://github.com/taiyme/eslint-config/issues/190))
+
+### Features
+
+* eslint v10, migrate plugins ([#190](https://github.com/taiyme/eslint-config/issues/190)) ([ac5bc83](https://github.com/taiyme/eslint-config/commit/ac5bc83902725cf1364184631a00748c3bdacf70))
+
+
+### Bug Fixes
+
+* add compilerOptions.types ([9cf3a17](https://github.com/taiyme/eslint-config/commit/9cf3a17c61deae3663bc365a30e88798b599ab45))
+* **deps:** update dependency tsdown to v0.22.14 ([#177](https://github.com/taiyme/eslint-config/issues/177)) ([165e617](https://github.com/taiyme/eslint-config/commit/165e6170ae2398de61dc4b85cbcd030d29751b6b))
+* **deps:** update dependency typescript to v6.0.3 ([#218](https://github.com/taiyme/eslint-config/issues/218)) ([1b8b489](https://github.com/taiyme/eslint-config/commit/1b8b4892d0c470b0f2994be0d0ca60f467746346))
+* **deps:** update npm dependencies ([#189](https://github.com/taiyme/eslint-config/issues/189)) ([2d3398f](https://github.com/taiyme/eslint-config/commit/2d3398f2cfbb7e98ae3b05e82809c5a394c49280))
+* **deps:** update npm production dependencies (non-major) ([#174](https://github.com/taiyme/eslint-config/issues/174)) ([5b3be05](https://github.com/taiyme/eslint-config/commit/5b3be0506bd4353d0fa5a1fa94e4a27618ccfc8f))
+* **deps:** update npm production dependencies (non-major) ([#181](https://github.com/taiyme/eslint-config/issues/181)) ([7e91b26](https://github.com/taiyme/eslint-config/commit/7e91b266ef6c9abb41e1d69858770e6ad56978a5))
+* **deps:** update npm production dependencies (non-major) ([#219](https://github.com/taiyme/eslint-config/issues/219)) ([4e47dda](https://github.com/taiyme/eslint-config/commit/4e47dda490bdc01244ac70d42855125595f06f27))
+* **deps:** update pnpm to v10.28.2 [security] ([#171](https://github.com/taiyme/eslint-config/issues/171)) ([26de964](https://github.com/taiyme/eslint-config/commit/26de9641917e02c7c1c575e01cdaa9aca2d1ba0e))
+* **deps:** update pnpm to v11 [security] ([#209](https://github.com/taiyme/eslint-config/issues/209)) ([1fcdffd](https://github.com/taiyme/eslint-config/commit/1fcdffd3ef4cdebbe0431b3da22db4fe84ac3cc2))
+* **deps:** update pnpm to v11.8.0 [security] ([#221](https://github.com/taiyme/eslint-config/issues/221)) ([371fd97](https://github.com/taiyme/eslint-config/commit/371fd97ad817025c71a89ad4bed3c9fa1ff681fa))
+
 ## [1.0.1](https://github.com/taiyme/eslint-config/compare/v1.0.0...v1.0.1) (2026-02-25)
 
 
