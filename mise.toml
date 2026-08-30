@@ -1,6 +1,6 @@
 [tools]
-node = "24.18.0"
-pnpm = "11.8.0"
+node = "24.19.0"
+pnpm = "11.24.0"
 
 [settings]
 pin = true
